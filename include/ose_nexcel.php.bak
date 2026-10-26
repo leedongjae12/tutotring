@@ -1,0 +1,95 @@
+<?
+include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_session.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/include/util_core.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/include/util.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_db.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
+include ($_SERVER['DOCUMENT_ROOT'] . "/script/PHPExcel.php");
+
+//권한체크
+$mAuth = validMenu($mid, "", $db);
+if ($mAuth == "") {
+	exit;
+} else {
+	if ($userlevel < substr($mAuth,0,1)) {
+		exit;
+	}
+}
+if ($userlevel >= substr($mAuth,0,1)) {
+	$CanRead = "Y";
+} else {
+	$CanRead = "N";
+}
+
+if ($CanRead != "Y") {
+	exit;
+}
+
+$ExcelHeader = getParam("ExcelHeader");
+$ExcelTitle = getParam("ExcelTitle") . ".xlsx";
+$ExcelType = getParam("ExcelType");
+$ExcelQuery = decrypt_str(getParam("ExcelQuery"), $enc_key);
+$ExcelWidth = getParam("ExcelWidth");
+
+@addLog($userno, "엑셀다운로드: " . $ExcelTitle, $db);
+
+function column_char($i) { 
+	if ($i < 26) {
+		return chr( 65 + $i ); 
+	} else {
+		return chr(65 + floor($i / 26) - 1) . chr(65 + ($i % 26));
+	}
+}
+
+$headers = explode(",", $ExcelHeader);
+$celltype = explode(",", $ExcelType);
+$cellwidth = explode(",", $ExcelWidth);
+$last_char = column_char( count($headers) - 1 );
+$excel = new PHPExcel();
+
+$excel->getDefaultStyle()->getFont()->setName('맑은 고딕')->setSize(10);
+$excel->setActiveSheetIndex(0)->getStyle( "A:$last_char" )->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$excel->setActiveSheetIndex(0)->getStyle( "A1:${last_char}1" )->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB("F3F3F3");
+
+for($i = 0; $i < sizeof($headers); $i++) {
+	//10 = 75픽셀
+	$cwidth = round($cellwidth[$i]*10/75,3);
+	$excel->setActiveSheetIndex(0)->setCellValue(column_char($i) . "1", $headers[$i]);
+	$excel->setActiveSheetIndex(0)->getColumnDimension(column_char($i))->setWidth($cwidth);
+}
+
+$seq = 1;
+$result = @mysqli_query($db, $ExcelQuery);
+while ($row = @mysqli_fetch_array($result, MYSQLI_NUM))	{
+	$excel->setActiveSheetIndex(0)->setCellValue("A" . ($seq+1), $seq);
+	for ($i=1; $i < sizeof($headers); $i++) {
+		if ($celltype[$i] == "B") {
+			$exValue = FormatDate($row[$i]);
+		} elseif ($celltype[$i] == "T") {
+			$exValue = date('Y-m-d H:i:s', $row[$i]);
+		} else {
+			$exValue = $row[$i];
+		}
+		if ($celltype[$i] == "F") {
+			$excel->setActiveSheetIndex(0)->getStyle(column_char($i) . ($seq+1))->getNumberFormat()->setFormatCode('#,##0.00');
+		} elseif ($celltype[$i] == "D") {
+			$excel->setActiveSheetIndex(0)->getStyle(column_char($i) . ($seq+1))->getNumberFormat()->setFormatCode('#,##0');
+		}
+		$excel->setActiveSheetIndex(0)->setCellValue(column_char($i) . ($seq+1), $exValue);
+		if ($celltype[$i] == "NL") {
+			$excel->setActiveSheetIndex(0)->getStyle(column_char($i) . ($seq+1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+		}
+	}
+	$seq++;
+}
+
+$writer = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+
+header('Content-Type: application/octet-stream');
+header("Content-Disposition: attachment; filename=\"". rawurlencode($ExcelTitle) ."\"");
+header('Cache-Control: max-age=0');
+$writer->save('php://output');
+
+include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_db_close.php');
+?>
