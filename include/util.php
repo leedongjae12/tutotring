@@ -593,9 +593,9 @@ function makeInput($db, $pEdit, $pType, $pGroup, $pID, $pName, $pStyle, $pScript
 			}
 			if ($pGroup == "USERPROGRAM") {
 				if ($lang == "k") {
-					$cstmt = @mysqli_prepare($db, "select tProgram.ID, cCodeName from tProgram inner join tCode on cCodeGroup='PROGRAM' and cCode=pCode where concat(pCampus,pSemester)='" . $pRef . "' order by cOrder");
+					$cstmt = @mysqli_prepare($db, "select tProgram.ID, cCodeName from tProgram inner join tCode on cCodeGroup='PROGRAM' and cCode=pCode where concat(pCampus,pSemester)=? order by cOrder");
 				} else {
-					$cstmt = @mysqli_prepare($db, "select tProgram.ID, cCodeNameE from tProgram inner join tCode on cCodeGroup='PROGRAM' and cCode=pCode where concat(pCampus,pSemester)='" . $pRef . "' order by cOrder");
+					$cstmt = @mysqli_prepare($db, "select tProgram.ID, cCodeNameE from tProgram inner join tCode on cCodeGroup='PROGRAM' and cCode=pCode where concat(pCampus,pSemester)=? order by cOrder");
 				}
 			} elseif ($pGroup == "OGUBUN") {
 				if ($pRef == "YN") {
@@ -624,7 +624,11 @@ function makeInput($db, $pEdit, $pType, $pGroup, $pID, $pName, $pStyle, $pScript
 					$cstmt = @mysqli_prepare($db, "select cCode, cCodeNameE as cCodeName from tCode where cCodeGroup=? " . $pWhere . " order by cOrder");
 				}
 			}
-			@mysqli_stmt_bind_param($cstmt, 's', $pGroup);
+			if ($pGroup == "USERPROGRAM") {
+				@mysqli_stmt_bind_param($cstmt, 's', $pRef);
+			} else {
+				@mysqli_stmt_bind_param($cstmt, 's', $pGroup);
+			}
 			@mysqli_stmt_execute($cstmt);
 			@mysqli_stmt_store_result($cstmt);
 			@mysqli_stmt_bind_result($cstmt, $cCode, $cCodeName);

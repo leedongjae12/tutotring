@@ -7,6 +7,8 @@ $usersosok = "";
 $userlevel = "";
 
 
+// Admin pages have no campus wrapper; keep the existing default language.
+$oCampus = $oCampus ?? "";
 $olang = getLang($db, $oCampus);
 
 $tempself = $_SERVER['PHP_SELF'];
