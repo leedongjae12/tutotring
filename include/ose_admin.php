@@ -1,4 +1,4 @@
-<?
+<?php
 error_reporting (E_ALL ^ E_NOTICE); 
 //관리자 페이지
 if ($userlevel >= substr($mAuth,0,1)) {
@@ -65,10 +65,10 @@ switch ($mid) {
 		?>
 		<form name="ffsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>">
 		<div id="admcontents_sbox"><input type="hidden" name="page" value="<?=htmlspecialchars($page)?>">
-		<?=makeInput($db, $CanRead, "select", "USERCAMPUS", "mCampus", "mCampus", "", "", $mCampus, "", "", "", "")?><?if ($mCampus == "") { $mCampus = $oValue; }?> <?=makeSemester("mSemester", "mSemester", $mSemester)?> <?=makeInput($db, $CanRead, "select", "USERPROGRAM", "mProgram", "mProgram", "", "", $mProgram, "N", $mCampus . $mSemester, "", "")?><?if ($mProgram == "") { $mProgram = $oValue; }?>&nbsp;&nbsp;&nbsp;튜터 <input type="radio" name="sOpt" value="" <?if ($sOpt == "") echo "checked";?>> 전체 <input type="radio" name="sOpt" value="Y" <?if ($sOpt == "Y") echo "checked";?>> 유 <input type="radio" name="sOpt" value="N" <?if ($sOpt == "N") echo "checked";?>> 무 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 튜티 <input type="radio" name="sOptB" <?if ($sOptB == "") echo "checked";?>> 전체 <input type="radio" name="sOptB" value="Y" <?if ($sOptB == "Y") echo "checked";?>> 튜티1명 <input type="radio" name="sOptB" value="D" <?if ($sOptB == "D") echo "checked";?>> 튜티 2명 이상 <input type="radio" name="sOptB" value="N" <?if ($sOptB == "N") echo "checked";?>> 무<p style="margin-bottom:0;">검색어 <input type="radio" name="sOptC" value="A" <?if ($sOptC == "A") echo "checked";?>> 과목명 <input type="radio" name="sOptC" value="B" <?if ($sOptC == "B") echo "checked";?>> 튜터명 <input type="radio" name="sOptC" value="C" <?if ($sOpt == "C") echo "checked";?>> 튜티명 <input type="text" name="keyword" class="width:100px;" value="<?=htmlspecialchars($keyword)?>"> <select name="pageblock"><option value="10" <?if ($pageblock == "10") echo "selected";?>>10개씩보기</option><option value="20" <?if ($pageblock == "20") echo "selected";?>>20개씩보기</option><option value="10" <?if ($pageblock == "50") echo "selected";?>>50개씩보기</option><option value="100" <?if ($pageblock == "100") echo "selected";?>>100개씩보기</option></select> <a href="#" OnClick="Javascript: document.ffsearch.page.value=''; showLoader(); document.ffsearch.submit(); return false;" class="button icon search">조회</a><a href="#" OnClick="Javascript: document.ffexcel.submit(); return false;" class="button icon download">엑셀다운</a><a href="#" OnClick="Javascript: LoadPopUp('/ose_popform.php?mid=<?=$mid?>&mCampus=<?=$mCampus?>&mSemester=<?=$mSemester?>&mProgram=<?=$mProgram?>&pact=sendsms', 'n'); return false;" class="button icon user" style="margin-left:5px;">SMS</a><a href="#" OnClick="Javascript: LoadPopUp('/ose_popform.php?mid=<?=$mid?>&mCampus=<?=$mCampus?>&mSemester=<?=$mSemester?>&mProgram=<?=$mProgram?>&pact=sendemail', 'n'); return false;" class="button icon mail" style="margin-left:5px;">이메일</a>
+		<?=makeInput($db, $CanRead, "select", "USERCAMPUS", "mCampus", "mCampus", "", "", $mCampus, "", "", "", "")?><?php if ($mCampus == "") { $mCampus = $oValue; }?> <?=makeSemester("mSemester", "mSemester", $mSemester)?> <?=makeInput($db, $CanRead, "select", "USERPROGRAM", "mProgram", "mProgram", "", "", $mProgram, "N", $mCampus . $mSemester, "", "")?><?php if ($mProgram == "") { $mProgram = $oValue; }?>&nbsp;&nbsp;&nbsp;튜터 <input type="radio" name="sOpt" value="" <?php if ($sOpt == "") echo "checked";?>> 전체 <input type="radio" name="sOpt" value="Y" <?php if ($sOpt == "Y") echo "checked";?>> 유 <input type="radio" name="sOpt" value="N" <?php if ($sOpt == "N") echo "checked";?>> 무 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 튜티 <input type="radio" name="sOptB" <?php if ($sOptB == "") echo "checked";?>> 전체 <input type="radio" name="sOptB" value="Y" <?php if ($sOptB == "Y") echo "checked";?>> 튜티1명 <input type="radio" name="sOptB" value="D" <?php if ($sOptB == "D") echo "checked";?>> 튜티 2명 이상 <input type="radio" name="sOptB" value="N" <?php if ($sOptB == "N") echo "checked";?>> 무<p style="margin-bottom:0;">검색어 <input type="radio" name="sOptC" value="A" <?php if ($sOptC == "A") echo "checked";?>> 과목명 <input type="radio" name="sOptC" value="B" <?php if ($sOptC == "B") echo "checked";?>> 튜터명 <input type="radio" name="sOptC" value="C" <?php if ($sOpt == "C") echo "checked";?>> 튜티명 <input type="text" name="keyword" class="width:100px;" value="<?=htmlspecialchars($keyword)?>"> <select name="pageblock"><option value="10" <?php if ($pageblock == "10") echo "selected";?>>10개씩보기</option><option value="20" <?php if ($pageblock == "20") echo "selected";?>>20개씩보기</option><option value="10" <?php if ($pageblock == "50") echo "selected";?>>50개씩보기</option><option value="100" <?php if ($pageblock == "100") echo "selected";?>>100개씩보기</option></select> <a href="#" OnClick="Javascript: document.ffsearch.page.value=''; showLoader(); document.ffsearch.submit(); return false;" class="button icon search">조회</a><a href="#" OnClick="Javascript: document.ffexcel.submit(); return false;" class="button icon download">엑셀다운</a><a href="#" OnClick="Javascript: LoadPopUp('/ose_popform.php?mid=<?=$mid?>&mCampus=<?=$mCampus?>&mSemester=<?=$mSemester?>&mProgram=<?=$mProgram?>&pact=sendsms', 'n'); return false;" class="button icon user" style="margin-left:5px;">SMS</a><a href="#" OnClick="Javascript: LoadPopUp('/ose_popform.php?mid=<?=$mid?>&mCampus=<?=$mCampus?>&mSemester=<?=$mSemester?>&mProgram=<?=$mProgram?>&pact=sendemail', 'n'); return false;" class="button icon mail" style="margin-left:5px;">이메일</a>
 		</div>
 		</form>
-		<?
+		<?php
 		$total_record = 0;
 		$num_per_page = $pageblock;
 
@@ -134,7 +134,7 @@ switch ($mid) {
 				<th width="100">튜터</th>
 				<th width="100">튜티</th>
 			</tr>
-			<?
+			<?php
 			$i = 1;
 			$stmt = @mysqli_prepare($db, "select tTutoring.ID, tTutoring.tTitle, tTutoring.tProfessor, tTutoring.tGubun, (select tStudent.sName from tStudent inner join tMember on tStudent.ID=tMember.sID where tMember.tID=tTutoring.ID and tMember.mGubun='A'), (select count(ID) from tMember where mGubun='B' and tID=tTutoring.ID), tProgram.pMax from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=? and tProgram.pSemester=? and tProgram.ID=?" . $tempWhere . " order by tTutoring.tTitle ASC limit ?, ?");
 			if ($keyword != "") {
@@ -163,13 +163,13 @@ switch ($mid) {
 					<td style="text-align:center;"><?=$tName?></td>
 					<td style="text-align:center;"><a href="#" OnClick="Javascript: LoadPopUp('/ose_popform.php?mid=<?=$mid?>&mCampus=<?=$mCampus?>&mSemester=<?=$mSemester?>&mProgram=<?=$mProgram?>&uid=<?=$uid?>&pact=tuteeinfo&lang=<?=$lang?>', 'n'); return false;"><?=number_format($tCnt,0)?></a></td>
 				</tr>
-				<?
+				<?php
 				$i++;
 			}
 			@mysqli_stmt_close($stmt);
 		?>
 		</table>
-		<?
+		<?php
 		$query_string = $PHP_SELF . "?mid=" . $mid . "&cmid=" . $cmid . "&lang=" . $lang . "&act=list&skeyword=" . urlencode($keyword) . "&mCampus=" . urlencode($mCampus) . "&mSemester=" . urlencode($mSemester) . "&mProgram=" . urlencode($mProgram) . "&sOpt=" . urlencode($sOpt) . "&sOptB=" . urlencode($sOptB) . "&sOptC=" . urlencode($sOptC) . "&pageblock=" . urlencode($pageblock);
 		$icon_paging = getBBSPage($total_record, $total_page, $page_per_block, $page, $last, $query_string, $lang);
 		echo $icon_paging;
@@ -219,7 +219,7 @@ switch ($mid) {
 		<input type="hidden" name="ExcelQuery" value="<?=encrypt_str($ExcelQuery, $enc_key)?>"> -->
 		<input type="hidden" name="ExcelQuery" value="<?=htmlspecialchars($ExcelQuery)?>">
 		</form>
-		<?
+		<?php
 		break;
 	case "A02":
 		//학기관리
@@ -248,10 +248,10 @@ switch ($mid) {
 		?>
 		<form name="ffsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>">
 		<div id="admcontents_sbox">
-		<?=makeInput($db, $CanWrite, "select", "USERCAMPUS", "mCampus", "mCampus", "", "", $mCampus, "", "", "", "")?><?if ($mCampus == "") { $mCampus = $oValue; }?> <input type="radio" name="sOpt" value="A" <?if ($sOpt == "A") echo "checked";?>> 학기별 프로그램  <?=makeSemester("mSemester", "mSemester", $mSemester)?> <input type="radio" name="sOpt" value="B" <?if ($sOpt == "B") echo "checked";?>> 운영학기 <a href="#" OnClick="Javascript: showLoader(); document.ffsearch.submit(); return false;" class="button icon search">조회</a>
+		<?=makeInput($db, $CanWrite, "select", "USERCAMPUS", "mCampus", "mCampus", "", "", $mCampus, "", "", "", "")?><?php if ($mCampus == "") { $mCampus = $oValue; }?> <input type="radio" name="sOpt" value="A" <?php if ($sOpt == "A") echo "checked";?>> 학기별 프로그램  <?=makeSemester("mSemester", "mSemester", $mSemester)?> <input type="radio" name="sOpt" value="B" <?php if ($sOpt == "B") echo "checked";?>> 운영학기 <a href="#" OnClick="Javascript: showLoader(); document.ffsearch.submit(); return false;" class="button icon search">조회</a>
 		</div>
 		</form>
-		<?
+		<?php
 		if ($sOpt == "A") {
 			if ($actt == "aok" && $CanWrite == "Y") {
 				$pCode = getParam("pCode");
@@ -267,7 +267,7 @@ switch ($mid) {
 						alert('신청기간을 입력하세요'); 
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				} else {
 					$cCnt = 0;
 					if ($pCode != "") {
@@ -306,7 +306,7 @@ switch ($mid) {
 								alert('처리중 오류가 발생했습니다');
 								history.go(-1);
 							</script>
-							<?
+							<?php
 						}
 						@mysqli_autocommit($db, true);
 					} else {
@@ -315,7 +315,7 @@ switch ($mid) {
 							alert('동일한 프로그램이 존재합니다'); 
 							history.go(-1);
 						</script>
-						<?
+						<?php
 					}
 				}
 			}
@@ -346,7 +346,7 @@ switch ($mid) {
 						alert('처리중 오류가 발생했습니다'); 
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 				@mysqli_autocommit($db, true);
 			}
@@ -383,7 +383,7 @@ switch ($mid) {
 							alert('처리중 오류가 발생했습니다');
 							history.go(-1);
 						</script>
-						<?
+						<?php
 					}
 					@mysqli_autocommit($db, true);
 				} else {
@@ -392,7 +392,7 @@ switch ($mid) {
 						alert('개설된 튜터링 과목이 있는 프로그램은 삭제할 수 없습니다'); 
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 			}
 			?>
@@ -416,7 +416,7 @@ switch ($mid) {
 				<td><?=makeInput($db, $CanWrite, "date", "", "pFrom_0", "pFrom_0", " style=\"width:80px;\"", "", "", "Y", "", "", "")?> ~ <?=makeInput($db, $CanWrite, "date", "", "pTo_0", "pTo_0", " style=\"width:80px;\"", "", "", "Y", "", "", "")?></td>
 				<td><a href="#" OnClick="Javascript: updateCode('0', 'aok'); return false;" class="button icon add">추가</a></td>
 			</tr>
-			<?
+			<?php
 			$stmt = @mysqli_prepare($db, "select tProgram.ID, tProgram.pCode, tCode.cCodeName, tProgram.pSubject, tProgram.pTheme, tProgram.pMax, tProgram.pFrom, tProgram.pTo from tProgram inner join tCode on tCode.cCodeGroup='PROGRAM' and tCode.cCode=tProgram.pCode and tCode.cCodeRef=tProgram.pCampus where tProgram.pCampus=? and tProgram.pSemester=? order by tCode.cOrder ASC");
 			@mysqli_stmt_bind_param($stmt, 'ss', $mCampus, $mSemester);
 			@mysqli_stmt_execute($stmt);
@@ -437,9 +437,9 @@ switch ($mid) {
 					<td align="center"><?=makeInput($db, $CanWrite, "checkbox", "", "pTheme_" . $i, "pTheme_" . $i, "", "", $pTheme, "Y", "", "", "")?></td>
 					<td align="center"><?=makeInput($db, $CanWrite, "number", "", "pMax_" . $i, "pMax_" . $i, "  style=\"width:60px;  ime-mode:disabled\"", "", $pMax, "Y", "", "", "")?></td>
 					<td align="center"><?=makeInput($db, $CanWrite, "date", "", "pFrom_" . $i, "pFrom_" . $i, " style=\"width:80px;\"", "", $pFrom, "Y", "", "", "")?> ~ <?=makeInput($db, $CanWrite, "date", "", "pTo_" . $i, "pTo_" . $i, "", " style=\"width:80px;\"", $pTo, "Y", "", "", "")?></td>
-					<td class="center"><?if ($CanWrite=="Y") {?><a href="#" OnClick="Javascript: updateCode('<?=$i?>', 'mok'); return false;" class="button icon edit">수정</a><?}?><?if ($CanDelete=="Y") {?><a href="#" OnClick="Javascript: if (confirm('정말로 삭제하겠습니까?')) { updateCode('<?=$i?>', 'dok'); } return false;" class="button danger icon trash" style="margin-left:5px;">삭제</a><?}?></td>
+					<td class="center"><?php if ($CanWrite=="Y") {?><a href="#" OnClick="Javascript: updateCode('<?=$i?>', 'mok'); return false;" class="button icon edit">수정</a><?php }?><?php if ($CanDelete=="Y") {?><a href="#" OnClick="Javascript: if (confirm('정말로 삭제하겠습니까?')) { updateCode('<?=$i?>', 'dok'); } return false;" class="button danger icon trash" style="margin-left:5px;">삭제</a><?php }?></td>
 				</tr>
-				<?
+				<?php
 				$i++;
 			}
 			@mysqli_stmt_close($stmt);
@@ -489,7 +489,7 @@ switch ($mid) {
 					}
 				}
 			</script>
-			<?
+			<?php
 		} else {
 			if ($actt == "mok" && $CanWrite == "Y") {
 				$cSemester = getParam("cSemester");
@@ -512,7 +512,7 @@ switch ($mid) {
 						alert('처리중 오류가 발생했습니다');
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 				@mysqli_autocommit($db, true);
 			}
@@ -538,12 +538,12 @@ switch ($mid) {
 				<tr>
 					<td class="center"><?=getCodeName($db, "CAMPUS", $mCampus, "")?></td>
 					<td class="center"><?=makeSemester("cSemester", "cSemester", $cCodeDesc)?></td>
-					<td class="center"><?if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: showLoader(); document.ffdata.actt.value='mok'; document.ffdata.submit(); return false;" class="button icon edit">수정</a><?}?></td>
+					<td class="center"><?php if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: showLoader(); document.ffdata.actt.value='mok'; document.ffdata.submit(); return false;" class="button icon edit">수정</a><?php }?></td>
 
 				</tr>
 			</table>
 			</form>
-			<?
+			<?php
 		}
 		break;
 	case "A03":
@@ -588,7 +588,7 @@ switch ($mid) {
 		?>
 		<form name="ffsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>">
 		<div id="admcontents_sbox">
-		<?=makeInput($db, $CanWrite, "select", "USERCAMPUS", "mCampus", "mCampus", "", "", $mCampus, "", "", "", "")?><?if ($mCampus == "") { $mCampus = $oValue; }?> <?=makeSemester("mSemFrom", "mSemFrom", $mSemFrom)?> ~ <?=makeSemester("mSemTo", "mSemTo", $mSemTo)?> <?=makeInput($db, $CanWrite, "select", "PROGRAM", "mProgram", "mProgram", "", "", $mProgram, "N", $mCampus, "전체", "")?>  <a href="#" OnClick="Javascript: showLoader(); document.ffsearch.submit(); return false;" class="button icon search">조회</a><a href="#" OnClick="Javascript: document.ffexcel.submit(); return false;" class="button icon download">엑셀다운</a>
+		<?=makeInput($db, $CanWrite, "select", "USERCAMPUS", "mCampus", "mCampus", "", "", $mCampus, "", "", "", "")?><?php if ($mCampus == "") { $mCampus = $oValue; }?> <?=makeSemester("mSemFrom", "mSemFrom", $mSemFrom)?> ~ <?=makeSemester("mSemTo", "mSemTo", $mSemTo)?> <?=makeInput($db, $CanWrite, "select", "PROGRAM", "mProgram", "mProgram", "", "", $mProgram, "N", $mCampus, "전체", "")?>  <a href="#" OnClick="Javascript: showLoader(); document.ffsearch.submit(); return false;" class="button icon search">조회</a><a href="#" OnClick="Javascript: document.ffexcel.submit(); return false;" class="button icon download">엑셀다운</a>
 		</div>
 		</form>
 		<table class="ctable" width="100%">
@@ -601,7 +601,7 @@ switch ($mid) {
 			<th width="120">튜터수</th>
 			<th width="120">튜티수</th>
 		</tr>
-		<?
+		<?php
 		if ($mProgram != "") {
 			$ExcelQuery = "select '', A.pName, (select count(distinct tTutoring.ID) from tProgram inner join tTutoring on tTutoring.pID=tProgram.ID where tProgram.pCode=A.pCode and tProgram.pCampus=A.pCampus and tProgram.pSemester >='" . str_replace("'","''", $mSemFrom) . "' and tProgram.pSemester <='" . str_replace("'","''", $mSemTo) . "'), ((select count(distinct tMember.tID) from tMember inner join tTutoring on tMember.tID=tTutoring.ID inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=A.pCampus and tProgram.pCode=A.pCode and tProgram.pSemester >='" . str_replace("'","''", $mSemFrom) . "' and tProgram.pSemester <='" . str_replace("'","''", $mSemTo) . "') - (select count(distinct tMember.tID) from tMember inner join tTutoring on tMember.tID=tTutoring.ID inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=A.pCampus and tProgram.pCode=A.pCode and tProgram.pSemester >='" . str_replace("'","''", $mSemFrom) . "' and tProgram.pSemester <='" . str_replace("'","''", $mSemTo) . "' and tMember.mGubun='A')), ((select count(distinct tMember.tID) from tMember inner join tTutoring on tMember.tID=tTutoring.ID inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=A.pCampus and tProgram.pCode=A.pCode and tProgram.pSemester >='" . str_replace("'","''", $mSemFrom) . "' and tProgram.pSemester <='" . str_replace("'","''", $mSemTo) . "') - (select count(distinct tMember.tID) from tMember inner join tTutoring on tMember.tID=tTutoring.ID inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=A.pCampus and tProgram.pCode=A.pCode and tProgram.pSemester >='" . str_replace("'","''", $mSemFrom) . "' and tProgram.pSemester <='" . str_replace("'","''", $mSemTo) . "' and tMember.mGubun='B')), (select count(distinct tTutoring.ID) from tProgram inner join tTutoring on tTutoring.pID=tProgram.ID inner join tMember on tTutoring.ID=tMember.tID and tMember.mGubun='A' where tProgram.pCode=A.pCode and tProgram.pCampus=A.pCampus and tProgram.pSemester >='" . str_replace("'","''", $mSemFrom) . "' and tProgram.pSemester <='" . str_replace("'","''", $mSemTo) . "'), (select count(distinct tTutoring.ID) from tProgram inner join tTutoring on  tTutoring.pID=tProgram.ID inner join tMember on tTutoring.ID=tMember.tID and tMember.mGubun='B' where tProgram.pCode=A.pCode and tProgram.pCampus=A.pCampus and tProgram.pSemester >='" . str_replace("'","''", $mSemFrom) . "' and tProgram.pSemester <='" . str_replace("'","''", $mSemTo) . "') from (select distinct getCodeName('PROGRAM', pCode, pCampus, 'k') pName, pCampus, pCode from tProgram where pCampus='" . str_replace("'","''", $mCampus) . "' and pSemester >='" . str_replace("'","''", $mSemFrom) . "' and pSemester <='" . str_replace("'","''", $mSemTo) . "' and pCode='" . str_replace("'","''", $mProgram) . "') A order by A.pName";
 		} else {
@@ -638,7 +638,7 @@ switch ($mid) {
 				<td class="center"><?=number_format($pCntD,0)?></td>
 				<td class="center"><?=number_format($pCntE,0)?></td>
 			</tr>
-			<?
+			<?php
 			$i++;
 		}
 		@mysqli_stmt_close($stmt);
@@ -672,7 +672,7 @@ switch ($mid) {
 				hideLoader();
 			});
 		</script>
-		<?
+		<?php
 		break;
 	case "A04":
 		//콘텐츠 관리
@@ -687,27 +687,27 @@ switch ($mid) {
 		<form name="ffadmsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>">
 		<div id="admcontents_sbox">
 		<select name="cmid" OnChange="Javascript: showLoader(); document.ffadmsearch.submit();">
-		<option value="m01_AK" <?if ($cmid == "m01_AK") echo "selected"?>>신청안내 국문 (신촌)</option>
-		<option value="m01_AE" <?if ($cmid == "m01_AE") echo "selected"?>>신청안내 영문 (신촌)</option>
-		<option value="m01_BK" <?if ($cmid == "m01_BK") echo "selected"?>>신청안내 국문 (원주)</option>
-		<option value="m01_BE" <?if ($cmid == "m01_BE") echo "selected"?>>신청안내 영문 (원주)</option>
-		<option value="m01_CK" <?if ($cmid == "m01_CK") echo "selected"?>>신청안내 국문 (국제)</option>
-		<option value="m01_CE" <?if ($cmid == "m01_CE") echo "selected"?>>신청안내 영문 (국제)</option>
-		<option value="m03_AK" <?if ($cmid == "m03_AK") echo "selected"?>>개인정보 수집 및 이용동의 국문 (신촌)</option>
-		<option value="m03_AE" <?if ($cmid == "m03_AE") echo "selected"?>>개인정보 수집 및 이용동의 영문 (신촌)</option>
-		<option value="m03_BK" <?if ($cmid == "m03_BK") echo "selected"?>>개인정보 수집 및 이용동의 국문 (원주)</option>
-		<option value="m03_BE" <?if ($cmid == "m03_BE") echo "selected"?>>개인정보 수집 및 이용동의 영문 (원주)</option>
-		<option value="m03_CK" <?if ($cmid == "m03_CK") echo "selected"?>>개인정보 수집 및 이용동의 국문 (국제)</option>
-		<option value="m03_CE" <?if ($cmid == "m03_CE") echo "selected"?>>개인정보 수집 및 이용동의 영문 (국제)</option>
+		<option value="m01_AK" <?php if ($cmid == "m01_AK") echo "selected"?>>신청안내 국문 (신촌)</option>
+		<option value="m01_AE" <?php if ($cmid == "m01_AE") echo "selected"?>>신청안내 영문 (신촌)</option>
+		<option value="m01_BK" <?php if ($cmid == "m01_BK") echo "selected"?>>신청안내 국문 (원주)</option>
+		<option value="m01_BE" <?php if ($cmid == "m01_BE") echo "selected"?>>신청안내 영문 (원주)</option>
+		<option value="m01_CK" <?php if ($cmid == "m01_CK") echo "selected"?>>신청안내 국문 (국제)</option>
+		<option value="m01_CE" <?php if ($cmid == "m01_CE") echo "selected"?>>신청안내 영문 (국제)</option>
+		<option value="m03_AK" <?php if ($cmid == "m03_AK") echo "selected"?>>개인정보 수집 및 이용동의 국문 (신촌)</option>
+		<option value="m03_AE" <?php if ($cmid == "m03_AE") echo "selected"?>>개인정보 수집 및 이용동의 영문 (신촌)</option>
+		<option value="m03_BK" <?php if ($cmid == "m03_BK") echo "selected"?>>개인정보 수집 및 이용동의 국문 (원주)</option>
+		<option value="m03_BE" <?php if ($cmid == "m03_BE") echo "selected"?>>개인정보 수집 및 이용동의 영문 (원주)</option>
+		<option value="m03_CK" <?php if ($cmid == "m03_CK") echo "selected"?>>개인정보 수집 및 이용동의 국문 (국제)</option>
+		<option value="m03_CE" <?php if ($cmid == "m03_CE") echo "selected"?>>개인정보 수집 및 이용동의 영문 (국제)</option>
 		</select>
 		</div>
 		</form>
 		<div style="position:relative; float:left; width:920px; border:0; padding:0; margin:0; margin-top:15px;">
-		<?
+		<?php
 		include ($_SERVER['DOCUMENT_ROOT'] . '/include/ose_contents.php');
 		?>
 		</div>
-		<?
+		<?php
 		break;
 	case "A05":
 		//코드관리
@@ -733,7 +733,7 @@ switch ($mid) {
 					alert('코드 또는 설명을 입력하세요'); 
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			} else {
 				$cCnt = 0;
 				$stmt = @mysqli_prepare($db, "select count(ID) from tCode where cCodeGroup=? and cCode=?");
@@ -765,7 +765,7 @@ switch ($mid) {
 							alert('처리중 오류가 발생했습니다');
 							history.go(-1);
 						</script>
-						<?
+						<?php
 					}
 					@mysqli_autocommit($db, true);
 				} else {
@@ -774,7 +774,7 @@ switch ($mid) {
 						alert('동일한 코드가 존재합니다'); 
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 			}
 		}
@@ -793,7 +793,7 @@ switch ($mid) {
 					alert('설명을 입력하세요'); 
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			} else {
 				@mysqli_autocommit($db, false);
 				try {
@@ -815,7 +815,7 @@ switch ($mid) {
 						alert('처리중 오류가 발생했습니다');
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 				@mysqli_autocommit($db, true);
 			}
@@ -843,7 +843,7 @@ switch ($mid) {
 					alert('처리중 오류가 발생했습니다');
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			}
 			@mysqli_autocommit($db, true);
 		}
@@ -999,7 +999,7 @@ switch ($mid) {
 					alert('처리중 오류가 발생했습니다');
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			}
 			@mysqli_autocommit($db, true);
 		}
@@ -1028,7 +1028,7 @@ switch ($mid) {
 						alert('사용중인 코드는 삭제할 수 없습니다');
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				} else {
 					@mysqli_autocommit($db, false);
 					try {
@@ -1050,7 +1050,7 @@ switch ($mid) {
 							alert('처리중 오류가 발생했습니다');
 							history.go(-1);
 						</script>
-						<?
+						<?php
 					}
 					@mysqli_autocommit($db, true);
 				}
@@ -1062,11 +1062,11 @@ switch ($mid) {
 		?>
 		<form name="ffsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>" style="margin-top:10px;">
 		<div id="admcontents_sbox">
-		<?
+		<?php
 		for ($i = 0; $i < sizeof($cGroup); $i++) {
 			?>
-			<input type="radio" name="sOpt" value="<?=htmlspecialchars($cGroup[$i])?>" <?if ($sOpt == $cGroup[$i]) echo "checked";?>> <?=htmlspecialchars($cGroupName[$i])?>
-			<?
+			<input type="radio" name="sOpt" value="<?=htmlspecialchars($cGroup[$i])?>" <?php if ($sOpt == $cGroup[$i]) echo "checked";?>> <?=htmlspecialchars($cGroupName[$i])?>
+			<?php
 		}
 		?>
 		<a href="#" OnClick="Javascript: showLoader(); document.ffsearch.submit(); return false;" class="button icon search">조회</a>
@@ -1076,14 +1076,14 @@ switch ($mid) {
 		<input type="hidden" name="actt">
 		<input type="hidden" name="sOpt" value="<?=$sOpt?>">
 		<table class="ctable" width="100%" style="margin-top:10px;">
-			<?
+			<?php
 			if ($sOpt == "IPLIST") {
 				?>
 				<tr>
 					<th>IP목록 (콤마구분하여 입력)</th>
 					<th width="80">작업</th>
 				</tr>
-				<?
+				<?php
 			} elseif ($sOpt == "CAMPUS") {
 				?>
 				<tr>
@@ -1097,7 +1097,7 @@ switch ($mid) {
 					<th width="150">개인정보 보유기한(일)</th>
 					<th width="80">작업</th>
 				</tr>
-				<?
+				<?php
 			} elseif ($sOpt == "GRADE" || $sOpt == "PROGRAM")  {
 				?>
 				<tr>
@@ -1110,7 +1110,7 @@ switch ($mid) {
 					<th width="60">사용여부</th>
 					<th width="150">작업</th>
 				</tr>
-				<?
+				<?php
 			} else {
 				?>
 				<tr>
@@ -1122,22 +1122,22 @@ switch ($mid) {
 					<th width="60">사용여부</th>
 					<th width="150">작업</th>
 				</tr>
-				<?
+				<?php
 			}
 			if (($sOpt == "GRADE" || $sOpt == "PROGRAM" || $sOpt == "CREDIT") && $CanWrite == "Y") {
 				?>
 				<tr class="bg2">
 					<td>-<input type="hidden" name="uid_0" id="uid_0" value=""></td>
 					<td><input type="text" name="cCode_0" id="cCode_0" style="width:75px;" maxlength="20"></td>
-					<?
+					<?php
 					if ($sOpt == "GRADE") {
 						?>
 						<td><?=makeInput($db, $CanWrite, "select", "SOSOK", "cCodeRef_0", "cCodeRef_0", "", "", "", "", "", "", "")?></td>
-						<?
+						<?php
 					} elseif ($sOpt == "PROGRAM") {
 						?>
 						<td><?=makeInput($db, $CanWrite, "select", "CAMPUS", "cCodeRef_0", "cCodeRef_0", "", "", "", "", "", "", "")?></td>
-						<?
+						<?php
 					}
 					?>
 					<td><input type="text" name="cCodeName_0" id="cCodeName_0" style="width:90%; " maxlength="200"></td>
@@ -1146,7 +1146,7 @@ switch ($mid) {
 					<td><input type="checkbox" name="cShow_0" id="cShow_0" value="Y"></td>
 					<td><a href="#" OnClick="Javascript: updateCode('0', 'aok'); return false;" class="button icon add">추가</a></td>
 				</tr>
-			<?
+			<?php
 			}
 			if ($sOpt == "IPLIST") {
 				$stmt = @mysqli_prepare($db, "select ID, cCode, cCodeName, cCodeNameE, cCodeDesc, cCodeRef, cShow, cOrder from tCode where cCodeGroup='SYSTEM' and cCode='IPLIST'");
@@ -1163,9 +1163,9 @@ switch ($mid) {
 					?>
 					<tr<?=$OddLine?>>
 						<td align="center"><input type="text" name="cCodeDesc" id="cCodeDesc" style="width:98%;" value="<?=htmlspecialchars($cCodeDesc)?>"></td>
-						<td class="center"><?if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: showLoader(); document.ffdata.actt.value='mok2'; document.ffdata.submit(); return false;" class="button icon edit">수정</a><?}?></td>
+						<td class="center"><?php if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: showLoader(); document.ffdata.actt.value='mok2'; document.ffdata.submit(); return false;" class="button icon edit">수정</a><?php }?></td>
 					</tr>
-					<?
+					<?php
 					$i++;
 				}
 				@mysqli_stmt_close($stmt);
@@ -1189,17 +1189,17 @@ switch ($mid) {
 						<td align="center"><input type="text" name="cCodeNameE<?=$cCode?>" style="width:90%;" value="<?=htmlspecialchars($cCodeNameE)?>"></td>
 						<td align="center"><input type="text" name="cEmail<?=$cCode?>" id="cEmail<?=$cCode?>" style="width:90%;" value="<?=htmlspecialchars($cEmail)?>"></td>
 						<td align="center"><input type="text" name="cSMS<?=$cCode?>" id="cSMS<?=$cCode?>" style="width:90%;" value="<?=htmlspecialchars($cSMS)?>"></td>
-						<td align="center"><select name="cLang<?=$cCode?>"><option value="k" <?if ($cLang == "k") echo "selected";?>>국문</option><option value="e" <?if ($cLang == "e") echo "selected";?>>영문</option></select></td>
+						<td align="center"><select name="cLang<?=$cCode?>"><option value="k" <?php if ($cLang == "k") echo "selected";?>>국문</option><option value="e" <?php if ($cLang == "e") echo "selected";?>>영문</option></select></td>
 						<td align="center"><input type="text" name="cSaveDay<?=$cCode?>" style="width:90%;" value="<?=number_format($cSaveDay,0)?>" OnKeyPress="Javascript: return onlyNum(this);" OnKeyUp="Javascript: this.value=number_format(this.value);"></td>
-						<?
+						<?php
 						if ($i == 1) {
 							?>
-							<td class="center" rowspan="3"><?if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: if (validateEmail('cEmailA', 'Y') && validateContact('cSMSA', 'Y') && validateEmail('cEmailB', 'Y') && validateContact('cSMSB', 'Y') && validateEmail('cEmailC', 'Y') && validateContact('cSMSC', 'Y')) { showLoader(); document.ffdata.actt.value='mok3'; document.ffdata.submit(); } return false;" class="button icon edit">수정</a><?}?></td>
-							<?
+							<td class="center" rowspan="3"><?php if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: if (validateEmail('cEmailA', 'Y') && validateContact('cSMSA', 'Y') && validateEmail('cEmailB', 'Y') && validateContact('cSMSB', 'Y') && validateEmail('cEmailC', 'Y') && validateContact('cSMSC', 'Y')) { showLoader(); document.ffdata.actt.value='mok3'; document.ffdata.submit(); } return false;" class="button icon edit">수정</a><?php }?></td>
+							<?php
 						}
 						?>
 					</tr>
-					<?
+					<?php
 					$i++;
 				}
 				@mysqli_stmt_close($stmt);
@@ -1220,34 +1220,34 @@ switch ($mid) {
 					<tr<?=$OddLine?>>
 						<td class="center"><?=$i?><input type="hidden" name="uid[]" id="uid_<?=$i?>" value="<?=$uid?>"></td>
 						<td align="center"><?=htmlspecialchars($cCode)?><input type="hidden" name="cCode_<?=$i?>" id="cCode_<?=$i?>" value="<?=htmlspecialchars($cCode)?>"></td>
-						<?
+						<?php
 						if ($sOpt == "GRADE") {
 							?>
 							<td align="center"><?=makeInput($db, $CanWrite, "select", "SOSOK", "cCodeRef_" . $i, "cCodeRef_" . $i, "", "", $cCodeRef, "", "", "", "")?></td>
-							<?
+							<?php
 						} elseif ($sOpt == "PROGRAM") {
 							?>
 							<td align="center"><?=makeInput($db, $CanWrite, "select", "CAMPUS", "cCodeRef_" . $i, "cCodeRef_" . $i, "", "", $cCodeRef, "", "", "", "")?></td>
-							<?
+							<?php
 						}
 						?>
 						<td align="center"><input type="text" name="cCodeName_<?=$i?>" id="cCodeName_<?=$i?>" style="width:90%; " maxlength="100" value="<?=htmlspecialchars($cCodeName)?>"></td>
 						<td align="center"><input type="text" name="cCodeNameE_<?=$i?>" id="cCodeNameE_<?=$i?>" style="width:90%; " maxlength="100" value="<?=htmlspecialchars($cCodeNameE)?>"></td>
 						<td align="center"><input type="text" name="cOrder_<?=$i?>" id="cOrder_<?=$i?>" style="width:40px;  ime-mode:disabled" maxlength="200" value="<?=number_format($cOrder,0)?>" OnKeyPress="Javascript: return onlyNum(this);" OnKeyUp="Javascript: this.value=number_format(this.value);"></td>
-						<?
+						<?php
 						if ($sOpt == "SEMESTER" || $sOpt == "OGUBUN" || $sOpt == "MGUBUN") {
 							?>
 							<td align="center"><?=$cShow?></td>
-							<?
+							<?php
 						} else {
 							?>
-							<td align="center"><input type="checkbox" name="cShow_<?=$i?>" id="cShow_<?=$i?>" value="Y" <?if ($cShow=="Y") echo "checked";?>></td>
-							<?
+							<td align="center"><input type="checkbox" name="cShow_<?=$i?>" id="cShow_<?=$i?>" value="Y" <?php if ($cShow=="Y") echo "checked";?>></td>
+							<?php
 						}
 						?>
-						<td class="center"><?if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: updateCode('<?=$i?>', 'mok'); return false;" class="button icon edit">수정</a><?}?><?if ($CanDelete == "Y" && ($sOpt == "PROGRAM" || $sOpt == "GRADE" || $sOpt == "CREDIT")) {?><a href="#" OnClick="Javascript: if (confirm('정말로 삭제하겠습니까?')) { updateCode('<?=$i?>', 'dok'); } return false;" class="button danger icon trash" style="margin-left:5px;">삭제</a><?}?></td>
+						<td class="center"><?php if ($CanWrite == "Y") {?><a href="#" OnClick="Javascript: updateCode('<?=$i?>', 'mok'); return false;" class="button icon edit">수정</a><?php }?><?php if ($CanDelete == "Y" && ($sOpt == "PROGRAM" || $sOpt == "GRADE" || $sOpt == "CREDIT")) {?><a href="#" OnClick="Javascript: if (confirm('정말로 삭제하겠습니까?')) { updateCode('<?=$i?>', 'dok'); } return false;" class="button danger icon trash" style="margin-left:5px;">삭제</a><?php }?></td>
 					</tr>
-					<?
+					<?php
 					$i++;
 				}
 				@mysqli_stmt_close($stmt);
@@ -1294,7 +1294,7 @@ switch ($mid) {
 				document.ffadmin.submit();
 			}
 		</script>
-		<?
+		<?php
 		break;
 	case "A06":
 		if ($CanRead != "Y") {
@@ -1319,7 +1319,7 @@ switch ($mid) {
 					alert('아이디 또는 비밀번호를 입력하세요'); 
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			} else {
 				$cCnt = 0;
 				$stmt = @mysqli_prepare($db, "select count(ID) from tAdmin where sUserID=?");
@@ -1351,7 +1351,7 @@ switch ($mid) {
 							alert('처리중 오류가 발생했습니다');
 							history.go(-1);
 						</script>
-						<?
+						<?php
 					}
 					@mysqli_autocommit($db, true);
 				} else {
@@ -1360,7 +1360,7 @@ switch ($mid) {
 						alert('동일한 아이디가 존재합니다'); 
 						history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 			}
 		}
@@ -1400,7 +1400,7 @@ switch ($mid) {
 					alert('처리중 오류가 발생했습니다'); 
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			}
 			@mysqli_autocommit($db, true);
 		}
@@ -1426,7 +1426,7 @@ switch ($mid) {
 					alert('처리중 오류가 발생했습니다');
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			}
 			@mysqli_autocommit($db, true);
 		}
@@ -1466,7 +1466,7 @@ switch ($mid) {
 			<td><input type="password" name="sPassword_0" id="sPassword_0" style="width:90%;" maxlength="20"></td>
 			<td><a href="#" OnClick="Javascript: updateCode('0', 'aok'); return false;" class="button icon add">추가</a></td>
 		</tr>
-		<?
+		<?php
 		$stmt = @mysqli_prepare($db, "select ID, sUserID, sName, dbdec(?, sEmail), dbdec(?, sContact), sAuth, substring(sGubun,1,1), substring(sGubun,2,1), substring(sGubun,3,1) from tAdmin order by ID ASC");
 		@mysqli_stmt_bind_param($stmt, 'ss', $enc_key, $enc_key);
 		@mysqli_stmt_execute($stmt);
@@ -1491,9 +1491,9 @@ switch ($mid) {
 				<td align="center"><?=makeInput($db, $CanWrite, "checkbox", "", "sGubunB_" . $i, "sGubunB_" . $i, "", "", $sGubunB, "Y", "", "", "")?></td>
 				<td align="center"><?=makeInput($db, $CanWrite, "checkbox", "", "sGubunC_" . $i, "sGubunC_" . $i, "", "", $sGubunC, "Y", "", "", "")?></td>
 				<td align="center"><input type="password" name="sPassword_<?=$i?>" id="sPassword_<?=$i?>" style="width:90%;" maxlength="20"></td>
-				<td class="center"><?if ($CanWrite=="Y") {?><a href="#" OnClick="Javascript: updateCode('<?=$i?>', 'mok'); return false;" class="button icon edit">수정</a><?}?><?if ($CanDelete=="Y") {?><a href="#" OnClick="Javascript: if (confirm('정말로 삭제하겠습니까?')) { updateCode('<?=$i?>', 'dok'); } return false;" class="button danger icon trash" style="margin-left:5px;">삭제</a><?}?></td>
+				<td class="center"><?php if ($CanWrite=="Y") {?><a href="#" OnClick="Javascript: updateCode('<?=$i?>', 'mok'); return false;" class="button icon edit">수정</a><?php }?><?php if ($CanDelete=="Y") {?><a href="#" OnClick="Javascript: if (confirm('정말로 삭제하겠습니까?')) { updateCode('<?=$i?>', 'dok'); } return false;" class="button danger icon trash" style="margin-left:5px;">삭제</a><?php }?></td>
 			</tr>
-			<?
+			<?php
 			$i++;
 		}
 		@mysqli_stmt_close($stmt);
@@ -1550,7 +1550,7 @@ switch ($mid) {
 				}
 			}
 		</script>
-		<?
+		<?php
 		break;
 	case "A07":
 		if ($CanRead != "Y") {
@@ -1579,7 +1579,7 @@ switch ($mid) {
 			<th>IP</th>
 			<th>작업내용</th>
 		</tr>
-		<?
+		<?php
 		$sFromTime = strtotime($sFrom . " 00:00:00");
 		$sToTime = strtotime($sTo . " 23:59:59");
 
@@ -1610,7 +1610,7 @@ switch ($mid) {
 				<td class="center"><?=htmlspecialchars($aIP)?></td>
 				<td class="center"><?=htmlspecialchars($aTask)?></td>
 			</tr>
-			<?
+			<?php
 			$i++;
 		}
 		@mysqli_stmt_close($stmt);
@@ -1623,7 +1623,7 @@ switch ($mid) {
 		<input type="hidden" name="ExcelWidth" value="<?=htmlspecialchars($ExcelWidth)?>">
 		<input type="hidden" name="ExcelQuery" value="<?=encrypt_str($ExcelQuery, $enc_key)?>">
 		</form>
-		<?
+		<?php
 		@addLog ($userno, "개인정보접속로그 조회: " . $sFrom . " ~ " . $sTo, $db);
 		break;
 	case "A08":
@@ -1661,7 +1661,7 @@ switch ($mid) {
 					alert('처리중 오류가 발생했습니다'); 
 					history.go(-1);
 				</script>
-				<?
+				<?php
 			}
 			@mysqli_autocommit($db, true);
 		}
@@ -1681,7 +1681,7 @@ switch ($mid) {
 			<th>비밀번호</th>
 			<th width="80">작업</th>
 		</tr>
-		<?
+		<?php
 		$stmt = @mysqli_prepare($db, "select ID, sUserID, sName, dbdec(?, sContact), dbdec(?, sEmail), sAuth, sGubun from tAdmin where ID=?");
 		@mysqli_stmt_bind_param($stmt, 'ssi', $enc_key, $enc_key, $userno);
 		@mysqli_stmt_execute($stmt);
@@ -1707,7 +1707,7 @@ switch ($mid) {
 				<td align="center"><input type="password" name="sPassword_<?=$i?>" id="sPassword_<?=$i?>" style="width:90%;" maxlength="20"></td>
 				<td class="center"><a href="#" OnClick="Javascript: updateCode('<?=$i?>', 'mok'); return false;" class="button icon edit">수정</a></td>
 			</tr>
-			<?
+			<?php
 			$i++;
 		}
 		@mysqli_stmt_close($stmt);
@@ -1736,7 +1736,7 @@ switch ($mid) {
 				}
 			}
 		</script>
-		<?
+		<?php
 		break;
 }
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 function file_upload($filename, $maxSize, $boardtype) {
 	$upload_base = $_SERVER['DOCUMENT_ROOT'];
 	if ($boardtype == "image") {
@@ -37,7 +37,7 @@ function file_upload($filename, $maxSize, $boardtype) {
 			$file_str = "n";
 			?>
 			<script type="text/javascript">alert('<?=$myfile_ext?> <?=$msg_file_allowed?>'); history.go(-1);</script>
-			<?
+			<?php
 		}
 		
 		if ($myfile_size > $maxSize) {
@@ -45,7 +45,7 @@ function file_upload($filename, $maxSize, $boardtype) {
 			$file_str = "n";
 			?>
 			<script type="text/javascript">alert('<?=$msg_file_maxsize?>'); history.go(-1);</script>
-			<?
+			<?php
 		}
 
 		if ($file_upload_yn == "y") {
@@ -72,7 +72,7 @@ function file_upload($filename, $maxSize, $boardtype) {
 				$file_str = "n";
 				?>
 				<script type="text/javascript">alert('<?=$msg_upload_fail?>'); history.go(-1);</script>
-				<?
+				<?php
 			} else {
 				$file_str = str_replace($upload_base, "", $dest) . "|" . $myfile_name . "|" . $myfile_size;
 			}
@@ -156,7 +156,7 @@ function TinyMCEInit ($userlevel, $editor_width, $editor_css, $mid, $cmid, $lang
 				window.open(connector, "tinyfck", "modal,width=500,height=600,scrollbars=yes,resizable=yes");
 			}
 		</script>
-		<?
+		<?php
 	} else {
 		?>
 		<script type="text/javascript" src="/script/editor/tiny_mce.js"></script>
@@ -182,7 +182,7 @@ function TinyMCEInit ($userlevel, $editor_width, $editor_css, $mid, $cmid, $lang
 			content_css : ["/css/default.css", "<?=$editor_css?>"]
 			});
 		</script>
-		<?
+		<?php
 	}
 }
 

@@ -1,4 +1,4 @@
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_session.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util_core.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util.php');
@@ -80,13 +80,13 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 </head>
 <body>
 	<div id="wrapper_pop">
-		<?
+		<?php
 		if ($CanRead == "N" ) {
 			?>
 			<script type="text/javascript">
 				parent.window.location="./index.php";
 			</script>
-			<?
+			<?php
 		} else {
 			$oCampus = $_SESSION["oCampus"];
 			switch ($pact) {
@@ -99,7 +99,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 					}
 					?>
 					<p><img src="/images/bullet.gif" border="0" align="absmiddle"> <b><?=htmlspecialchars($app_label_tutorinfo)?></b></p>
-					<?
+					<?php
 					$stmt = @mysqli_prepare($db, "select tStudent.sHakbun, (case when '" . $lang . "'='k' Then tStudent.sName Else tStudent.sNameE End), tStudent.sName, tStudent.sNameE, dbdec(?, tStudent.sContact), dbdec(?, tStudent.sEmail), tMember.mSosok, getCodeName('SOSOK', tMember.mSosok, '', '" . $lang . "'), tMember.mSosokName, tMember.mGrade, getCodeName('GRADE', tMember.mGrade, tMember.mSosok, '" . $lang . "'), tMember.mOpen, tMember.mCredit, getCodeName('CREDIT', tMember.mCredit, '', '" . $lang . "'), tMember.mFile, tMember.mFileName, tMember.mFileSize, tMember.mService, tMember.mPurpose, tMember.mMaterial, tMember.mDesc, tMember.mTime, tMember.mRemark, tTutoring.tTitle, tTutoring.tProfessor, tTutoring.tGubun, tMember.mGubun, tMember.mCredit, tMember.mFile, tMember.mFileName, tMember.mFileSize, tMember.mService, tMember.ID from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID inner join tMember on tTutoring.ID=tMember.tID inner join tStudent on tMember.sID=tStudent.ID where tProgram.pCampus=? and tProgram.pSemester=? and tProgram.ID=? and tTutoring.ID=? and tMember.mGubun='A'");
 					@mysqli_stmt_bind_param($stmt, 'ssssii', $enc_key, $enc_key, $oCampus, $mSemester, $mProgram, $uid);
 					@mysqli_stmt_execute($stmt);
@@ -150,7 +150,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								<th class="thnormal"><?=htmlspecialchars($app_label_formb_4)?></th><td><?=makeInput($db, "N", "select", "CREDIT", "mCredit", "mCredit", "", "", $mCredit, "", "", "", "")?></td>
 							</tr>
 							<tr id="tutorinfob">
-								<?
+								<?php
 								$temp_ext = explode(".", $mFileName);
 								$myfile_ext = $temp_ext[sizeof($temp_ext)-1];	
 								$myfile_ext = strtolower($myfile_ext);
@@ -176,7 +176,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								<th class="thnormal"><?=htmlspecialchars($app_label_formb_6)?></th><td><?=makeInput($db, "N", "checkbox", "", "mService", "mService", "", "", $mService, "", "", "", "")?> <?=htmlspecialchars($app_label_formb_7)?></td>
 							</tr>-->
 						</table>
-						<?
+						<?php
 					}
 					?>
 					<table class="ContentsTableGray" width="100%">
@@ -203,7 +203,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 						</tr>
 					</table>
 					<p align="center"><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
-					<?
+					<?php
 					if ($userlevel >= 7) {
 						@addLog ($userno, "튜터정보 조회 [" . $oCampus . "] " . $mSemester  . " - " . $mProgram . " : " . $sHakbun, $db);
 					}
@@ -215,20 +215,20 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 					?>
 					<p><img src="/images/bullet.gif" border="0" align="absmiddle"> <b><?=htmlspecialchars($app_label_tuteeinfo)?></b> (<?=htmlspecialchars(getTutoringInfo($db, $uid))?>)</p>
 					<table class="ContentsTableGray" width="100%">
-					<?
+					<?php
 					if ($userlevel >= "7") {
 						$oCampus = getParam("mCampus");
 						?>
 						<tr>
 							<th width="130">학번</th><th width="130">이름</th><th>구분</th><th>소속</th><th>연락처</th><th>이메일</th>
 						</tr>
-						<?
+						<?php
 					} else {
 						?>
 						<tr>
 							<th width="130"><?=htmlspecialchars($app_label_forma_1)?></th><th width="130"><?=htmlspecialchars($app_label_forma_2a)?></th><th><?=htmlspecialchars($app_label_forma_6)?></th>
 						</tr>
-						<?
+						<?php
 					}
 					$stmt = @mysqli_prepare($db, "select tStudent.sHakbun, (case when '" . $lang . "'='k' Then tStudent.sName Else tStudent.sNameE End), dbdec(?, tStudent.sContact), dbdec(?, tStudent.sEmail), tMember.mSosok, getCodeName('SOSOK', tMember.mSosok, '', '" . $lang . "'), tMember.mSosokName, tMember.mGrade, getCodeName('GRADE', tMember.mGrade, tMember.mSosok, '" . $lang . "'), tMember.mOpen, tTutoring.tTitle, tTutoring.tProfessor from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID inner join tMember on tTutoring.ID=tMember.tID inner join tStudent on tMember.sID=tStudent.ID where tProgram.pCampus=? and tProgram.pSemester=? and tProgram.ID=? and tTutoring.ID=? and tMember.mGubun='B'");
 					@mysqli_stmt_bind_param($stmt, 'ssssii', $enc_key, $enc_key, $oCampus, $mSemester, $mProgram, $uid);
@@ -247,7 +247,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								<td style="text-align:center;"><?=htmlspecialchars($sContact)?></td>
 								<td style="text-align:center;"><?=htmlspecialchars($sEmail)?></td>
 							</tr>
-							<?
+							<?php
 							@addLog ($userno, "튜티정보 조회 [" . $oCampus . "] " . $mSemester  . " - " . $mProgram . " : " . $sHakbun, $db);
 						} else {
 							$sHakbun = substr($sHakbun,0,7) . "****";
@@ -257,14 +257,14 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								<td style="text-align:center;"><?=htmlspecialchars($sName)?></td>
 								<td style="text-align:center;"><?=htmlspecialchars($mSosokName)?></td>
 							</tr>
-							<?
+							<?php
 						}
 					}
 					@mysqli_stmt_close($stmt);
 					?>
 					</table>
 					<p align="center"><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
-					<?
+					<?php
 					break;
 				case "applytutor":
 					//튜터신청
@@ -288,21 +288,21 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 									alert("<?=$app_label_max?>");
 									histroy.go(-1);
 								</script>
-								<?
+								<?php
 							} elseif ($aCnt > 0) {
 								?>
 								<script type="text/javascript">
 									alert("<?=$app_apply_alreadytutee?>");
 									histroy.go(-1);
 								</script>
-								<?
+								<?php
 							} elseif ($sCnt >= $sMax) {
 								?>
 								<script type="text/javascript">
 									alert("<?=$app_apply_quota?>");
 									histroy.go(-1);
 								</script>
-								<?
+								<?php
 							} else {
 								$mName = getParam("mName");
 								$mNameE = getParam("mNameE");
@@ -319,7 +319,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 										alert("파일 최대 업로드 사이즈는 <?=$upload_limit_mb?>MB입니다. 업로드 가능한 파일 크기를 초과했습니다.");
 										history.go(-1);
 									</script>
-									<?
+									<?php
 									exit;
 								}
 								$gFile = file_upload("mFile", $max_upload_size, "document");
@@ -363,7 +363,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 											alert('<?=$app_apply_tutor_success?>');
 											closePop();
 										</script>
-										<?
+										<?php
 									} catch(Exception $e) {
 										$errMsg = $base_page . ": " . $e->getmessage();
 										@systemLog($errMsg);
@@ -373,7 +373,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 											alert('<?=$msg_commit_error?>');
 											history.go(-1);
 										</script>
-										<?
+										<?php
 									}
 									@mysqli_autocommit($db, true);
 								}
@@ -466,7 +466,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 
 						
 						</form>
-						<p align="center"><?if ($CanApply == "Y") {?><a href="#" OnClick="Javascript: if (validateAgree('agree1', '<?=$app_label_privacy?>') && validateName('mName', 'Y') && validateName('mNameE', 'Y') && validateEmail('mEmail', 'Y') && validateContact('mContact', 'Y') && validateSosok('mSosokName', 'Y') && validateGrade('mGrade', 'Y') && FileUploadCheck('mFile', 'Y', 1, 'file', '<?=$max_upload_size?>') && validateText('mPurpose', 'Y') && validateText('mMaterial', 'Y') && validateText('mDesc', 'Y') && validateText('mTime', 'Y')) { if (confirm('<?=$app_confirm_tutor?>')) { showLoader(); document.fform.actt.value='mok'; document.fform.submit(); } } return false;" class="button icon approve"><?} else {?><a href="#" OnClick="Javascript: alert('<?=$app_label_noperiod?>'); return false;" class="button icon approve"><?}?><?=htmlspecialchars($app_label_app_submit)?></a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
+						<p align="center"><?php if ($CanApply == "Y") {?><a href="#" OnClick="Javascript: if (validateAgree('agree1', '<?=$app_label_privacy?>') && validateName('mName', 'Y') && validateName('mNameE', 'Y') && validateEmail('mEmail', 'Y') && validateContact('mContact', 'Y') && validateSosok('mSosokName', 'Y') && validateGrade('mGrade', 'Y') && FileUploadCheck('mFile', 'Y', 1, 'file', '<?=$max_upload_size?>') && validateText('mPurpose', 'Y') && validateText('mMaterial', 'Y') && validateText('mDesc', 'Y') && validateText('mTime', 'Y')) { if (confirm('<?=$app_confirm_tutor?>')) { showLoader(); document.fform.actt.value='mok'; document.fform.submit(); } } return false;" class="button icon approve"><?php } else {?><a href="#" OnClick="Javascript: alert('<?=$app_label_noperiod?>'); return false;" class="button icon approve"><?php }?><?=htmlspecialchars($app_label_app_submit)?></a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
 						<script type="text/javascript">
 							$("input:radio[name=mSosok]").click(function() {
 								showLoader();
@@ -490,12 +490,12 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								hideLoader();
 							});
 						</script>
-						<?
+						<?php
 					} else {
 						?>
 						<p><?=$msg_error_permission?></p>
 						<p align="center"><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
-						<?
+						<?php
 					}
 					break;
 				case "applytutee":
@@ -520,21 +520,21 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 									alert("<?=$app_label_max?>");
 									histroy.go(-1);
 								</script>
-								<?
+								<?php
 							} elseif ($aCnt > 0) {
 								?>
 								<script type="text/javascript">
 									alert("<?=$app_apply_alreadytutor?>");
 									histroy.go(-1);
 								</script>
-								<?
+								<?php
 							} elseif ($sCnt >= $sMax) {
 								?>
 								<script type="text/javascript">
 									alert("<?=$app_apply_quota?>");
 									histroy.go(-1);
 								</script>
-								<?
+								<?php
 							} else {
 								$mName = getParam("mName");
 								$mNameE = getParam("mNameE");
@@ -567,7 +567,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 											alert('<?=$app_apply_tutee_success?>');
 											closePop();
 										</script>
-										<?
+										<?php
 									} catch(Exception $e) {
 										$errMsg = $base_page . ": " . $e->getmessage();
 										@systemLog($errMsg);
@@ -577,7 +577,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 											alert('<?=$msg_commit_error?>');
 											history.go(-1);
 										</script>
-										<?
+										<?php
 									}
 									@mysqli_autocommit($db, true);
 								}
@@ -635,7 +635,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 							</tr>
 						</table>
 						</form>
-						<p align="center"><?if ($CanApply == "Y") {?><a href="#" OnClick="Javascript: if (validateAgree('agree1', '<?=$app_label_privacy?>') && validateName('mName', 'Y') && validateName('mNameE', 'Y') && validateEmail('mEmail', 'Y') && validateContact('mContact', 'Y') && validateSosok('mSosokName', 'Y') && validateGrade('mGrade', 'Y')) { if (confirm('<?=$app_confirm_tutee?>')) { showLoader(); document.fform.actt.value='mok'; document.fform.submit(); } } return false;" class="button icon approve"><?} else {?><a href="#" OnClick="Javascript: alert('<?=$app_label_noperiod?>'); return false;" class="button icon approve"><?}?><?=htmlspecialchars($app_label_app_submit)?></a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
+						<p align="center"><?php if ($CanApply == "Y") {?><a href="#" OnClick="Javascript: if (validateAgree('agree1', '<?=$app_label_privacy?>') && validateName('mName', 'Y') && validateName('mNameE', 'Y') && validateEmail('mEmail', 'Y') && validateContact('mContact', 'Y') && validateSosok('mSosokName', 'Y') && validateGrade('mGrade', 'Y')) { if (confirm('<?=$app_confirm_tutee?>')) { showLoader(); document.fform.actt.value='mok'; document.fform.submit(); } } return false;" class="button icon approve"><?php } else {?><a href="#" OnClick="Javascript: alert('<?=$app_label_noperiod?>'); return false;" class="button icon approve"><?php }?><?=htmlspecialchars($app_label_app_submit)?></a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
 						<script type="text/javascript">
 							$("input:radio[name=mSosok]").click(function() {
 								showLoader();
@@ -659,12 +659,12 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								hideLoader();
 							});
 						</script>
-						<?
+						<?php
 					} else {
 						?>
 						<p><?=$msg_error_permission?></p>
 						<p align="center"><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
-						<?
+						<?php
 					}
 					break;
 				case "subjectsearch":
@@ -680,10 +680,10 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 					<form name="ffsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>&pact=<?=$pact?>&lang=<?=$lang?>">
 					<div id="contents_sbox">
 					<input type="hidden" name="mSemester" value="<?=htmlspecialchars($mSemester)?>">
-					<input type="radio" name="sOpt" value="A" <?if ($sOpt == "A") echo "checked";?>> 과목명 <input type="radio" name="sOpt" value="B" <?if ($sOpt == "B") echo "checked";?>> 교수명 <input type="text" name="keyword" id="keyword" style="width:150px;" placeholder="<?=$app_label_subjectkeyword?>" value="<?=htmlspecialchars($keyword)?>"> <a href="#" OnClick="Javascript: if (validateKeyword('keyword', 'Y')) { showLoader(); document.ffsearch.submit(); } return false;" class="button icon search"><?=htmlspecialchars($msg_btn_search)?></a>
+					<input type="radio" name="sOpt" value="A" <?php if ($sOpt == "A") echo "checked";?>> 과목명 <input type="radio" name="sOpt" value="B" <?php if ($sOpt == "B") echo "checked";?>> 교수명 <input type="text" name="keyword" id="keyword" style="width:150px;" placeholder="<?=$app_label_subjectkeyword?>" value="<?=htmlspecialchars($keyword)?>"> <a href="#" OnClick="Javascript: if (validateKeyword('keyword', 'Y')) { showLoader(); document.ffsearch.submit(); } return false;" class="button icon search"><?=htmlspecialchars($msg_btn_search)?></a>
 					</div>
 					</form>
-					<?
+					<?php
 					if ($keyword != "") {
 						?>
 						<table class="ContentsTableBlue" width="100%">
@@ -693,7 +693,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 							<th><?=htmlspecialchars($app_label_result_b)?></th>
 							<th width="120"><?=htmlspecialchars($app_label_result_f)?></th>
 						</tr>
-						<?
+						<?php
 						if (substr($mSemester,4,1) == "A") {
 							$hyhg = substr($mSemester,0,4) . "1";
 						} elseif (substr($mSemester,4,1) == "B") {
@@ -739,7 +739,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 									<td style="text-align:center;"><a href="#" OnClick="Javascript: parent.document.getElementById('tTitle').value='<?=str_replace("'","\\'", $tTitle)?>'; parent.document.getElementById('tProfessor').value='<?=str_replace("'","\\'", $tProfessor)?>'; parent.document.getElementById('tPortal').value='<?=str_replace("'","\\'", $tProtal)?>'; closePop(); return false;"><?=htmlspecialchars($tTitle)?></a></td>
 									<td style="text-align:center;"><?=htmlspecialchars($tProfessor)?></td>
 								</tr>
-								<?
+								<?php
 								$i++;
 						   //}
 						}
@@ -748,15 +748,15 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 							<tr>
 								<td colspan="4" style="text-align:center;"><?=$msg_error_nodata?></td>
 							</tr>
-							<?
+							<?php
 						}
 						?>
 						</table>
-						<?
+						<?php
 					}
 					?>
 					<p align="center"><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
-					<?
+					<?php
 					break;
 				case "subjectinfo":
 					//과목개설
@@ -787,7 +787,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 									alert("파일 최대 업로드 사이즈는 <?=$upload_limit_mb?>MB입니다. 업로드 가능한 파일 크기를 초과했습니다.");
 									history.go(-1);
 								</script>
-								<?
+								<?php
 								exit;
 							}
 							$gFile = file_upload("mFile", $max_upload_size, "document");
@@ -859,14 +859,14 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 											alert('<?=$app_apply_tutor_success?>');
 											closePop();
 										</script>
-										<?
+										<?php
 									} else {
 										?>
 										<script type="text/javascript">
 											alert('<?=$app_apply_tutee_success?>');
 											closePop();
 										</script>
-										<?
+										<?php
 									}
 								} catch(Exception $e) {
 									$errMsg = $base_page . ": " . $e->getmessage();
@@ -877,7 +877,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 										alert('<?=$msg_commit_error?>');
 										history.go(-1);
 									</script>
-									<?
+									<?php
 								}
 								@mysqli_autocommit($db, true);
 							}
@@ -996,7 +996,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 						</div>
 						
 						</form>
-						<p align="center"><?if ($CanApply == "Y") {?><a href="#" OnClick="Javascript: checkform(); return false;" class="button icon approve"><?} else {?><a href="#" OnClick="Javascript: alert('<?=$app_label_noperiod?>'); return false;" class="button icon approve"><?}?><?=htmlspecialchars($app_label_app_submit)?></a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
+						<p align="center"><?php if ($CanApply == "Y") {?><a href="#" OnClick="Javascript: checkform(); return false;" class="button icon approve"><?php } else {?><a href="#" OnClick="Javascript: alert('<?=$app_label_noperiod?>'); return false;" class="button icon approve"><?php }?><?=htmlspecialchars($app_label_app_submit)?></a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
 						<script type="text/javascript">
 							$("input:radio[name=mSosok]").click(function() {
 								showLoader();
@@ -1096,12 +1096,12 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								}
 							}
 						</script>
-						<?
+						<?php
 					} else {
 						?>
 						<p><?=$msg_error_permission?></p>
 						<p align="center"><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove"><?=$msg_btn_close?></a></p>
-						<?
+						<?php
 					}
 					break;
 				case "sendsms":
@@ -1129,7 +1129,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 						<script type="text/javascript">
 							alert("발송되었습니다");
 						</script>
-						<?
+						<?php
 					}
 					?>
 					<form name="ffsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>&pact=<?=$pact?>">
@@ -1151,7 +1151,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 							<th width="100">튜터</th>
 							<th width="100">튜티</th>
 						</tr>
-						<?
+						<?php
 						$i = 1;
 						$stmt = @mysqli_prepare($db, "select tTutoring.ID, tTutoring.tTitle, tTutoring.tProfessor, tTutoring.tGubun, (select tStudent.sName from tStudent inner join tMember on tStudent.ID=tMember.sID where tMember.tID=tTutoring.ID and tMember.mGubun='A'), (select count(ID) from tMember where mGubun='B' and tID=tTutoring.ID), tProgram.pMax from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=? and tProgram.pSemester=? and tProgram.ID=? order by tTutoring.tTitle ASC");
 						@mysqli_stmt_bind_param($stmt, 'ssi', $mCampus, $mSemester, $mProgram);
@@ -1177,7 +1177,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								<td style="text-align:center;"><?=$tName?></td>
 								<td style="text-align:center;"><?=number_format($tCnt,0)?></td>
 							</tr>
-							<?
+							<?php
 							$i++;
 						}
 						@mysqli_stmt_close($stmt);
@@ -1194,7 +1194,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 						</tr>
 					</table>
 					<p align="center"><a href="#" OnClick="Javascript: var i=0; var str = ''; if (document.fform['pID[]'].length == undefined) { if (document.fform['pID[]'].checked) { str = document.fform['pID[]'].value; } } else { for (i=0; i < document.fform['pID[]'].length; i++) { if (document.fform['pID[]'][i].checked) { str = document.fform['pID[]'][i].value + ',' + str }}} if (str == '') { alert('과목을 선택하세요'); } else { if (validateTel('mSender', 'Y') && validateText('tmtext', 'Y') && confirm('발송하시겠습니까?')) { showLoader(); document.fform.act.value='mok'; document.fform.submit(); } } return false;" class="button icon approve">발송</a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove">닫기</a></p>
-					<?
+					<?php
 					break;
 				case "sendemail":
 					if ($userlevel < "7") {
@@ -1222,7 +1222,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 						<script type="text/javascript">
 							alert("발송되었습니다");
 						</script>
-						<?
+						<?php
 					}
 					?>
 					<form name="ffsearch" method="post" action="<?=$PHP_SELF?>?mid=<?=$mid?>&pact=<?=$pact?>">
@@ -1244,7 +1244,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 							<th width="100">튜터</th>
 							<th width="100">튜티</th>
 						</tr>
-						<?
+						<?php
 						$i = 1;
 						$stmt = @mysqli_prepare($db, "select tTutoring.ID, tTutoring.tTitle, tTutoring.tProfessor, tTutoring.tGubun, (select tStudent.sName from tStudent inner join tMember on tStudent.ID=tMember.sID where tMember.tID=tTutoring.ID and tMember.mGubun='A'), (select count(ID) from tMember where mGubun='B' and tID=tTutoring.ID), tProgram.pMax from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=? and tProgram.pSemester=? and tProgram.ID=? order by tTutoring.tTitle ASC");
 						@mysqli_stmt_bind_param($stmt, 'ssi', $mCampus, $mSemester, $mProgram);
@@ -1270,7 +1270,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 								<td style="text-align:center;"><?=$tName?></td>
 								<td style="text-align:center;"><?=number_format($tCnt,0)?></td>
 							</tr>
-							<?
+							<?php
 							$i++;
 						}
 						@mysqli_stmt_close($stmt);
@@ -1290,7 +1290,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 						</tr>
 					</table>
 					<p align="center"><a href="#" OnClick="Javascript: var i=0; var str = ''; if (document.fform['pID[]'].length == undefined) { if (document.fform['pID[]'].checked) { str = document.fform['pID[]'].value; } } else { for (i=0; i < document.fform['pID[]'].length; i++) { if (document.fform['pID[]'][i].checked) { str = document.fform['pID[]'][i].value + ',' + str }}} if (str == '') { alert('과목을 선택하세요'); } else { if (validateEmail('mSender', 'Y') && validateTitle('mTitle', 'Y') && validateTinyText('tmtext', 'Y') && confirm('발송하시겠습니까?')) { showLoader(); document.fform.act.value='mok'; document.fform.submit(); } } return false;" class="button icon approve">발송</a><a href="#" OnClick="Javascript: closePop(); return false;" class="button icon remove">닫기</a></p>
-					<?
+					<?php
 					TinyMCEInit ($userlevel, "100%", $editor_css, $mid, $cmid, $lang);
 					break;
 			}
@@ -1308,6 +1308,6 @@ include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_lang.php');
 	</div>
 </body>
 </html>
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_db_close.php');
 ?>

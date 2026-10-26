@@ -1,4 +1,4 @@
-<?
+<?php
 $temp_str = "";
 $userno = "";
 $userid = "";

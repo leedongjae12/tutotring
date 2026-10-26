@@ -1,4 +1,4 @@
-<?
+<?php
 session_cache_limiter('no-cache, must-revalidate');
 session_cache_expire(600);
 session_start();

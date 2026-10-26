@@ -1,13 +1,13 @@
-<?
-error_reporting (0); 
+<?php
+error_reporting(E_ALL);
 $enc_key ='os#^&*!etutr!@%#';
 
 function encrypt_str($text, $enc_key) {
-	return trim(base64_encode(openssl_encrypt($text, 'AES-128-CBC', $key, OPENSSL_RAW_DATA)));
+	return trim(base64_encode(openssl_encrypt($text, 'AES-128-CBC', $enc_key, OPENSSL_RAW_DATA, str_repeat(chr(0), 16))));
 }
 
 function decrypt_str($text, $enc_key) {
-	return trim(openssl_decrypt(base64_decode($text), 'AES-128-CBC', $key, OPENSSL_RAW_DATA));
+	return trim(openssl_decrypt(base64_decode($text), 'AES-128-CBC', $enc_key, OPENSSL_RAW_DATA, str_repeat(chr(0), 16)));
 }
 
 //변수 받기
@@ -23,10 +23,7 @@ function getParam($name) {
 			$result = $_GET[$name];
 		}
 	}
-	$result = trim($result);
-	if (get_magic_quotes_gpc() == 1) {
-		$result = stripslashes($result);
-	}
+	$result = is_scalar($result) ? trim((string) $result) : "";
 	return $result;
 }
 

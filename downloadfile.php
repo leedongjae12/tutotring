@@ -1,4 +1,4 @@
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_session.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util_core.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util.php');

@@ -1,0 +1,13 @@
+{
+    "name": "leedongjae12/tutotring",
+    "description": "Tutoring web application",
+    "type": "project",
+    "require": {
+        "php": "~8.4.0",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-mysqli": "*",
+        "ext-openssl": "*",
+        "phpoffice/phpspreadsheet": "^5.0"
+    }
+}

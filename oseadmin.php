@@ -1,4 +1,4 @@
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_session.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util_core.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util.php');
@@ -42,7 +42,7 @@ if ($mAuth == "") {
 </head>
 <body>
 	<div id="wrapper">
-	<?
+	<?php
 	$userip = $_SERVER['REMOTE_ADDR'];
 	$stmt = @mysqli_prepare($db, "select cCodeDesc from tCode where cCodeGroup='SYSTEM' and cCode='IPLIST'");
 	@mysqli_stmt_execute($stmt);
@@ -69,7 +69,7 @@ if ($mAuth == "") {
 		<script type="text/javascript">
 			alert("허용되지 않은 IP입니다");
 		</script>
-		<?
+		<?php
 	} else {
 		if ($mid == "A09") {
 			//로그아웃
@@ -82,7 +82,7 @@ if ($mAuth == "") {
 			</script>
 			</body>
 			</html>
-			<?
+			<?php
 			exit;
 		}
 		if ($actt == "lok") {
@@ -104,7 +104,7 @@ if ($mAuth == "") {
 				<script type="text/javascript">
 					alert('<?=$msg_login_error?>'); 
 				</script>
-				<?
+				<?php
 			} else {
 				if ($pw == "Y") {
 					$_SESSION["pwCnt"] = 0;
@@ -149,7 +149,7 @@ if ($mAuth == "") {
 						<script type="text/javascript">
 							alert('비밀번호 <?=$pwCnt?>회 오류입니다. 5회 오류시 권한이 해제됩니다.'); 
 						</script>
-						<?
+						<?php
 					} else {
 						$stmt = @mysqli_prepare($db, "update tAdmin Set sAuth='C' where sUserID=?");
 						@mysqli_stmt_bind_param($stmt, 's', $id);
@@ -160,7 +160,7 @@ if ($mAuth == "") {
 						<script type="text/javascript">
 							alert('비밀번호 5회 초과 오류로 권한이 해제되었습니다.'); 
 						</script>
-						<?
+						<?php
 					}
 				}
 			}
@@ -202,7 +202,7 @@ if ($mAuth == "") {
 					</div>
 				</div>
 			</div>
-			<?
+			<?php
 		} else {
 			if ($mid == "A01") {
 				$pageTitle = "신청현황";
@@ -235,21 +235,21 @@ if ($mAuth == "") {
 				<div id="toparea_menu">
 					<div id="css_s_menu">
 						<ul class="css_s_list">
-							<li class="menu_list<?if ($mid == "A01") echo "on";?>"><a href="oseadmin.php?mid=A01" title="신청현황">신청현황</a></li>
-							<li class="menu_list<?if ($mid == "A02") echo "on";?>"><a href="oseadmin.php?mid=A02" title="학기관리">학기관리</a></li>
-							<li class="menu_list<?if ($mid == "A03") echo "on";?>"><a href="oseadmin.php?mid=A03" title="통계">통계</a></li>
-							<li class="menu_list<?if ($mid == "A04") echo "on";?>"><a href="oseadmin.php?mid=A04" title="콘텐츠관리">콘텐츠관리</a></li>
-							<?
+							<li class="menu_list<?php if ($mid == "A01") echo "on";?>"><a href="oseadmin.php?mid=A01" title="신청현황">신청현황</a></li>
+							<li class="menu_list<?php if ($mid == "A02") echo "on";?>"><a href="oseadmin.php?mid=A02" title="학기관리">학기관리</a></li>
+							<li class="menu_list<?php if ($mid == "A03") echo "on";?>"><a href="oseadmin.php?mid=A03" title="통계">통계</a></li>
+							<li class="menu_list<?php if ($mid == "A04") echo "on";?>"><a href="oseadmin.php?mid=A04" title="콘텐츠관리">콘텐츠관리</a></li>
+							<?php
 							if ((int)$userlevel == 9) {
 								?>
-								<li class="menu_list<?if ($mid == "A05") echo "on";?>"><a href="oseadmin.php?mid=A05" title="코드관리">코드관리</a></li>
-								<li class="menu_list<?if ($mid == "A06") echo "on";?>"><a href="oseadmin.php?mid=A06" title="관리자관리">관리자관리</a></li>
-								<li class="menu_list<?if ($mid == "A07") echo "on";?>"><a href="oseadmin.php?mid=A07" title="개인정보접속로그">개인정보접속로그</a></li>
-								<?
+								<li class="menu_list<?php if ($mid == "A05") echo "on";?>"><a href="oseadmin.php?mid=A05" title="코드관리">코드관리</a></li>
+								<li class="menu_list<?php if ($mid == "A06") echo "on";?>"><a href="oseadmin.php?mid=A06" title="관리자관리">관리자관리</a></li>
+								<li class="menu_list<?php if ($mid == "A07") echo "on";?>"><a href="oseadmin.php?mid=A07" title="개인정보접속로그">개인정보접속로그</a></li>
+								<?php
 							}
 							?>
-							<li class="menu_list<?if ($mid == "A08") echo "on";?>"><a href="oseadmin.php?mid=A08" title="개인정보수정">개인정보수정</a></li>
-							<li class="menu_list<?if ($mid == "A09") echo "on";?>"><a href="oseadmin.php?mid=A09" title="로그아웃">로그아웃</a></li>
+							<li class="menu_list<?php if ($mid == "A08") echo "on";?>"><a href="oseadmin.php?mid=A08" title="개인정보수정">개인정보수정</a></li>
+							<li class="menu_list<?php if ($mid == "A09") echo "on";?>"><a href="oseadmin.php?mid=A09" title="로그아웃">로그아웃</a></li>
 						</ul>
 					</div>
 				</div>
@@ -259,13 +259,13 @@ if ($mAuth == "") {
 				<div id="css_smiddleareawrapper">
 					<div id="css_smiddlearea">
 						<div id="css_s_ctitle"><img src="/images/bullet_title.gif" align="absmiddle">&nbsp;&nbsp;<?=htmlspecialchars($pageTitle)?></div>
-						<?
+						<?php
 						include ($_SERVER['DOCUMENT_ROOT'] . '/include/ose_admin.php');
 						?>
 					</div>
 				</div>
 			</div>
-			<?
+			<?php
 		}
 		?>
 		<h2 class="notext">연락처 및 저작권</h2>
@@ -274,10 +274,10 @@ if ($mAuth == "") {
 				<div id="css_s_footext"><?=$label_copyright?></div>
 			</div>
 		</div>
-		<?
+		<?php
 	}
 	?>
-	<?
+	<?php
 	include ($_SERVER['DOCUMENT_ROOT'] . '/include/ose_loader.php');
 	?>
 	<div id="pop_up">
@@ -291,6 +291,6 @@ if ($mAuth == "") {
 </div>
 </body>
 </html>
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_db_close.php');
 ?>

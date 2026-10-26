@@ -1,4 +1,4 @@
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_session.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util_core.php');
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/util.php');
@@ -40,7 +40,7 @@ if ((int)$userlevel < 7) {
 	}
 </script>
 <body>
-<?
+<?php
 $act = getParam("act");
 $actt = getParam("actt");
 $wDepth = getNumber(getParam("wDepth"));
@@ -105,7 +105,7 @@ If ($act == "folderok") {
 		<script type="text/javascript">
 			alert('<?=$msg_commit_error?>'); history.go(-1);
 		</script>
-		<?
+		<?php
 	}
 	@mysqli_autocommit($db, true);
 }
@@ -145,7 +145,7 @@ If ($act == "fileok") {
 			<script type="text/javascript">
 				alert('<?=$msg_commit_error?>'); history.go(-1);
 			</script>
-			<?
+			<?php
 		}
 		@mysqli_autocommit($db, true);
 	}
@@ -187,7 +187,7 @@ if ($act == "del") {
 		<script type="text/javascript">
 			alert('<?=$msg_commit_error?>'); history.go(-1);
 		</script>
-		<?
+		<?php
 	}
 	@mysqli_autocommit($db, true);
 }
@@ -203,7 +203,7 @@ if ($lang == "k") {
 <tr><td colspan="3"><img src="/images/folder_create<?=$imgPrefix?>.gif" align="absmiddle"> <input type="text" name="wname" id="wname" size="20" class="solid"> <a href="#" OnClick="Javascript: if (validateFolder('wname', 'Y')) { showLoader(); document.fcreate.submit(); } return flase;"><img src="/images/folder_createok<?=$imgPrefix?>.gif" border="0" align="absmiddle"></a><input type="hidden" name="IsFolder" value="<?=$FolderYes?>"><input type="hidden" name="actt" value="<?=$actt?>"><input type="hidden" name="wDepth" value="<?=$wDepth?>"><input type="hidden" name="RefID" value="<?=$RefID?>"><input type="hidden" name="act" value="folderok"></td></tr></form>
 <form method="post" name="fupload" action="<?=$PHP_SELF?>?mid=<?=$mid?>&cmid=<?=$cmid?>&lang=<?=$lang?>" ENCTYPE="MULTIPART/FORM-DATA">
 <tr><td colspan="3"><img src="/images/file_upload<?=$imgPrefix?>.gif" align="absmiddle"> <input type="file" name="wname" id="wfile" class="solid"> <a href="#" OnClick="Javascript: if (FileUploadCheck('wfile', 'Y', 1, '<?=$actt?>', <?=$max_upload_size?>)) { showLoader(); document.fupload.submit(); } return false;"><img src="/images/file_uploadok<?=$imgPrefix?>.gif" border="0" align="absmiddle"></a><input type="hidden" name="IsFolder" value="<?=$FolderNo?>"><input type="hidden" name="actt" value="<?=$actt?>"><input type="hidden" name="wDepth" value="<?=$wDepth?>"><input type="hidden" name="RefID" value="<?=$RefID?>"><input type="hidden" name="act" value="fileok"></td></tr></form>
-<?
+<?php
 //폴더 리스트
 
 If ($wDepth > 1) {
@@ -230,7 +230,7 @@ If ($wDepth > 1) {
 	}
 	?>
 	<tr><td colspan="3" style="padding:5px;"><img src="/images/bullet.gif" border="0" align="absmiddle"> <?=$msg_browser_current?>: <a href="#" OnClick="Javascript: document.ffmove.RefID.value=''; document.ffmove.wDepth.value='1'; document.ffmove.submit(); return false;"><?=$msg_browser_root?></a>&nbsp;-&nbsp;
-	<?
+	<?php
 	for ($i=0 ; $i < sizeof($FolderName); $i++) {
 		if ($i < sizeof($FolderName) - 1) {
 			$StrNext = "&nbsp;-&nbsp;";
@@ -243,15 +243,15 @@ If ($wDepth > 1) {
 		}
 		?>
 		<?=$StrLink?><?=htmlspecialchars($FolderName[$i])?><?=$StrLink2?><?=$StrNext?>
-		<?
+		<?php
 	}
 	?>
 	</td></tr>
-	<?
+	<?php
 } else {
 	?>
 	<tr><td colspan="3" style="padding:5px;"><img src="/images/bullet.gif" border="0" align="absmiddle"> <?=$msg_browser_current?>: <?=$msg_browser_root?></td></tr>
-	<?
+	<?php
 }
 
 //파일 목록
@@ -269,7 +269,7 @@ If ($wDepth > 1) {
 	}
 	?>
 	<tr><td><img src="/images/FolderUp.gif" border="0" align="absmiddle"> <a href="#" OnClick="Javascript: document.ffmove.RefID.value='<?=$pID?>'; document.ffmove.wDepth.value='<?=$wDepth-1?>'; document.ffmove.submit(); return false;">..</a> </td><td>&nbsp;</td></tr> 
-	<?
+	<?php
 }
 $stmt = @mysqli_prepare($db, "select ID, wDepth, RefID, wFileName, wFile, wFileSize, IsFolder, wDate, B.FileCnt from tFileDB left join (select count(RefID) as FileCnt, RefID as FileID from tFileDB group by RefID) B on B.FileID=tFileDB.ID where mID=? and wDepth=? and RefID=? order by IsFolder ASC, wFileName ASC");
 @mysqli_stmt_bind_param($stmt, 'iii', $userno, $wDepth, $RefID);
@@ -312,16 +312,16 @@ if (@mysqli_stmt_num_rows($stmt) > 0) {
 			if ($actt == "image" && ($myfile_ext == "jpg" || $myfile_ext == "jpeg" || $myfile_ext == "gif" || $myfile_ext == "png")) {
 				?>
 				<tr><td width="320" style="font-size:11px;"><img src="<?=$strImg?>" border="0" align="absmiddle"> <a href="#" onClick="Javascript:OpenFile('<?=$wFile?>');"  style="font-size:11px;"><?=htmlspecialchars($wFileName)?></a> (<?=$FileSize?>)</td><td align="center" width="75" style="font-size:11px;">(<?=date('Y-m-d',$wDate)?>)</td><td align="center" width="60"><?=$StrDelete?></td></tr>
-				<?
+				<?php
 			} else if ($actt == "file") {
 				?>
 				<tr><td width="320" style="font-size:11px;"><img src="<?=$strImg?>" border="0" align="absmiddle"> <a href="#" onClick="Javascript:OpenFile('/downloadfile.php?mid=<?=$cmid?>&fid=<?=$wID?>');"  style="font-size:11px;"><?=htmlspecialchars($wFileName)?></a> (<?=$FileSize?>)</td><td align="center" width="75" style="font-size:11px;">(<?=date('Y-m-d',$wDate)?>)</td><td align="center" width="60"><?=$StrDelete?></td></tr>
-				<?
+				<?php
 			}
 		} else if ($IsFolder == $FolderYes) {
 			?>
 			<tr><td width="320" style="font-size:11px;"><img src="/images/Folder.gif" border="0" align="absmiddle"> <a href="#" OnClick="Javascript: document.ffmove.RefID.value='<?=$wID?>'; document.ffmove.wDepth.value='<?=$wDepth2+1?>'; document.ffmove.submit(); return false;"  style="font-size:11px;"><?=htmlspecialchars($wFileName)?></a></td><td align="center" width="75" style="font-size:11px;">(<?=date('Y-m-d',$wDate)?>)</td><td align="center" width="60" align="center"><?=$StrDelete?></td></tr>
-			<?
+			<?php
 		}
 	}
 }
@@ -339,11 +339,11 @@ if (@mysqli_stmt_num_rows($stmt) > 0) {
 <input type="hidden" name="actt" value="<?=$actt?>">
 </form>
 </table>
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/ose_loader.php');
 ?>
 </body>
 </html>
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_db_close.php');
 ?>

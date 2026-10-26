@@ -1,4 +1,4 @@
-<?
+<?php
 if ($lang == "k") {
 	$html_title = "연세대학교 튜터링 신청 시스템";
 	$copyright_text = "서울특별시 서대문구 연세로 50 연세대학교 백양관 N208  Tel. 02.2123.6998~9, 3997  Fax. 02.2123.8613  Email. ose_center@yonsei.ac.kr" ;

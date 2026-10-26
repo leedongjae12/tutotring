@@ -1,4 +1,4 @@
-<?
+<?php
 
 if (isset($oCampus) == false) {
 	header("location:/sinchon/index.php");
@@ -121,7 +121,7 @@ if ($CanRead == "N") {
 				alert('<?=$msg_commit_error?>');
 				history.go(-1);
 			</script>
-			<?
+			<?php
 		}
 		@mysqli_autocommit($db, true);
 	} else {
@@ -136,7 +136,7 @@ if ($CanRead == "N") {
 		<script type="text/javascript">
 			window.location="https://infra.yonsei.ac.kr/sauth/ctl_login.do";
 		</script>
-		<?
+		<?php
 	}
 }
 $_SESSION["oCampus"] = $oCampus;
@@ -172,17 +172,17 @@ $_SESSION["oCampus"] = $oCampus;
 				<H3 class="notext">Logo and Language</H3>
 				<div id="top_logo">
 					<ul id="top_area">
-						<?
+						<?php
 						if ($lang == "k") {
 							?>
 							<li id="top_area01"><a href="./index.php?lang=<?=$lang?>" title="<?=$app_label_logo?>"><img src="/images/OSE_main_logo.jpg" border="0" alt="<?=$app_label_logo?>"></a></li>
 							<li id="top_area02"><!--<a href="./index.php?lang=e">English</a>--></li>
-							<?
+							<?php
 						} else {
 							?>
 							<li id="top_area01"><a href="./index.php?lang=<?=$lang?>" title="<?=$app_label_logo?>"><img src="/images/OSE_main_logoe.jpg" border="0" alt="<?=$app_label_logo?>"></a></li>
 							<li id="top_area02"><a href="./index.php?lang=k">한국어</a></li>
-							<?
+							<?php
 						}
 						?>
 						<li id="top_area03" style="font-family:'Nanum Gothic', 'serif';"><?=getCodeName($db, "CAMPUS", $oCampus, "")?></li>
@@ -195,19 +195,19 @@ $_SESSION["oCampus"] = $oCampus;
 			<div id="middlearea">
 				<div id="ose_tab">
 					<ul class="ose_tablist">
-						<li <?if ($mid=="m01") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m01&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab1)?></a></li>
-						<li <?if ($mid=="m02") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m02&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab2)?></a></li>
-						<li <?if ($mid=="m03") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m03&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab3)?></a></li>
-						<?
+						<li <?php if ($mid=="m01") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m01&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab1)?></a></li>
+						<li <?php if ($mid=="m02") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m02&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab2)?></a></li>
+						<li <?php if ($mid=="m03") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m03&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab3)?></a></li>
+						<?php
 						if ($userlevel == "1") {
 							?>
-							<li <?if ($mid=="m04") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m04&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab4)?></a></li>
-							<?
+							<li <?php if ($mid=="m04") echo "class=\"tab_on\"";?>><a href="./index.php?mid=m04&lang=<?=$lang?>"><?=htmlspecialchars($app_lable_tab4)?></a></li>
+							<?php
 						}
 						?>
 					</ul>
 				</div>
-				<?
+				<?php
 				switch ($mid) {
 					case "m01":
 						$contents = "m01_" . $oCampus . strtoupper($lang);
@@ -238,7 +238,7 @@ $_SESSION["oCampus"] = $oCampus;
 								}
 							});
 						</script>
-						<?
+						<?php
 						break;
 					case "m02":
 						$CONFIG_SEM = getSem($db, $oCampus);
@@ -279,19 +279,19 @@ $_SESSION["oCampus"] = $oCampus;
 						if ($nCnt == 0) {
 							?>
 							<p>※ <?=htmlspecialchars($app_label_noprogram)?></p>
-							<?
+							<?php
 						} else {
 							?>
 							<form name="ffsearch" method="post" action="./index.php?mid=<?=$mid?>&lang=<?=$lang?>">
 							<div id="contents_sbox">
-							<?=makeInput($db, "Y", "select", "USERPROGRAM", "mProgram", "mProgram", "", " OnChange=\"Javascript: document.ffsearch.page.value=''; showLoader(); document.ffsearch.submit();\"", $mProgram, "N", $oCampus . $CONFIG_SEM, "", "")?><?if ($mProgram == "") { $mProgram = $oValue; }?>
+							<?=makeInput($db, "Y", "select", "USERPROGRAM", "mProgram", "mProgram", "", " OnChange=\"Javascript: document.ffsearch.page.value=''; showLoader(); document.ffsearch.submit();\"", $mProgram, "N", $oCampus . $CONFIG_SEM, "", "")?><?php if ($mProgram == "") { $mProgram = $oValue; }?>
 							<br>(<?=htmlspecialchars($app_label_period)?><span id="mPeriod"><?=getPeriod($db, $mProgram)?></span>)
-							<p style="margin-bottom:0;"><?=htmlspecialchars($app_label_tutor)?> <input type="radio" name="sOpt" value="" <?if ($sOpt == "") echo "checked";?>> <?=htmlspecialchars($app_label_optall)?> <input type="radio" name="sOpt" value="Y" <?if ($sOpt == "Y") echo "checked";?>> <?=htmlspecialchars($app_label_opty)?> <input type="radio" name="sOpt" value="N" <?if ($sOpt == "N") echo "checked";?>> <?=htmlspecialchars($app_label_optn)?> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <?=htmlspecialchars($app_label_tutee)?> <input type="radio" name="sOptB" <?if ($sOptB == "") echo "checked";?>> <?=htmlspecialchars($app_label_optall)?> <input type="radio" name="sOptB" value="Y" <?if ($sOptB == "Y") echo "checked";?>> <?=htmlspecialchars($app_label_opty)?> <input type="radio" name="sOptB" value="N" <?if ($sOptB == "N") echo "checked";?>> <?=htmlspecialchars($app_label_optn)?>
-							<br><input type="radio" name="sOptC" value="A" <?if ($sOptC == "A") echo "checked";?>> <?=htmlspecialchars($app_label_search_subject)?> <input type="radio" name="sOptC" value="B" <?if ($sOptC == "B") echo "checked";?>> <?=htmlspecialchars($app_label_search_tutor)?> <input type="radio" name="sOptC" value="C" <?if ($sOpt == "C") echo "checked";?>> <?=htmlspecialchars($app_label_search_tutee)?> <input type="text" name="keyword" class="width:100px;" value="<?=htmlspecialchars($keyword)?>"> <select name="pageblock"><option value="10" <?if ($pageblock == "10") echo "selected";?>>10<?=htmlspecialchars($app_label_search_page)?></option><option value="20" <?if ($pageblock == "20") echo "selected";?>>20<?=htmlspecialchars($app_label_search_page)?></option><option value="50" <?if ($pageblock == "50") echo "selected";?>>50<?=htmlspecialchars($app_label_search_page)?></option><option value="100" <?if ($pageblock == "100") echo "selected";?>>100<?=htmlspecialchars($app_label_search_page)?></option></select> <a href="#" OnClick="Javascript: document.ffsearch.page.value=''; showLoader(); document.ffsearch.submit(); return false;" class="button icon search"><?=htmlspecialchars($msg_btn_search)?></a>
+							<p style="margin-bottom:0;"><?=htmlspecialchars($app_label_tutor)?> <input type="radio" name="sOpt" value="" <?php if ($sOpt == "") echo "checked";?>> <?=htmlspecialchars($app_label_optall)?> <input type="radio" name="sOpt" value="Y" <?php if ($sOpt == "Y") echo "checked";?>> <?=htmlspecialchars($app_label_opty)?> <input type="radio" name="sOpt" value="N" <?php if ($sOpt == "N") echo "checked";?>> <?=htmlspecialchars($app_label_optn)?> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <?=htmlspecialchars($app_label_tutee)?> <input type="radio" name="sOptB" <?php if ($sOptB == "") echo "checked";?>> <?=htmlspecialchars($app_label_optall)?> <input type="radio" name="sOptB" value="Y" <?php if ($sOptB == "Y") echo "checked";?>> <?=htmlspecialchars($app_label_opty)?> <input type="radio" name="sOptB" value="N" <?php if ($sOptB == "N") echo "checked";?>> <?=htmlspecialchars($app_label_optn)?>
+							<br><input type="radio" name="sOptC" value="A" <?php if ($sOptC == "A") echo "checked";?>> <?=htmlspecialchars($app_label_search_subject)?> <input type="radio" name="sOptC" value="B" <?php if ($sOptC == "B") echo "checked";?>> <?=htmlspecialchars($app_label_search_tutor)?> <input type="radio" name="sOptC" value="C" <?php if ($sOpt == "C") echo "checked";?>> <?=htmlspecialchars($app_label_search_tutee)?> <input type="text" name="keyword" class="width:100px;" value="<?=htmlspecialchars($keyword)?>"> <select name="pageblock"><option value="10" <?php if ($pageblock == "10") echo "selected";?>>10<?=htmlspecialchars($app_label_search_page)?></option><option value="20" <?php if ($pageblock == "20") echo "selected";?>>20<?=htmlspecialchars($app_label_search_page)?></option><option value="50" <?php if ($pageblock == "50") echo "selected";?>>50<?=htmlspecialchars($app_label_search_page)?></option><option value="100" <?php if ($pageblock == "100") echo "selected";?>>100<?=htmlspecialchars($app_label_search_page)?></option></select> <a href="#" OnClick="Javascript: document.ffsearch.page.value=''; showLoader(); document.ffsearch.submit(); return false;" class="button icon search"><?=htmlspecialchars($msg_btn_search)?></a>
 							<input type="hidden" name="page" value="<?=htmlspecialchars($page)?>">
 							</div>
 							</form>
-							<?
+							<?php
 							$total_record = 0;
 							$num_per_page = $pageblock;
 
@@ -361,7 +361,7 @@ $_SESSION["oCampus"] = $oCampus;
 								<th width="80"><?=htmlspecialchars($app_label_result_d)?></th>
 								<th width="80"><?=htmlspecialchars($app_label_result_e)?></th>
 							</tr>
-							<?
+							<?php
 							$i = 1;
 							if ($lang == "k") {
 								$stmt = @mysqli_prepare($db, "select tTutoring.ID, tTutoring.tTitle, tTutoring.tProfessor, tTutoring.tGubun, (select tStudent.sName from tStudent inner join tMember on tStudent.ID=tMember.sID where tMember.tID=tTutoring.ID and tMember.mGubun='A'), (select count(ID) from tMember where mGubun='B' and tID=tTutoring.ID), tProgram.pMax from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID where tProgram.pCampus=? and tProgram.pSemester=? and tProgram.ID=?" . $tempWhere . " order by tTutoring.tTitle ASC limit ?, ?");
@@ -416,7 +416,7 @@ $_SESSION["oCampus"] = $oCampus;
 									<td style="text-align:center;"><a href="#" OnClick="Javascript: LoadPopUp('/ose_popform.php?mid=<?=$mid?>&mSemester=<?=$CONFIG_SEM?>&mProgram=<?=$mProgram?>&uid=<?=$uid?>&pact=tuteeinfo&lang=<?=$lang?>', 'n'); return false;"><?=number_format($tCnt,0)?></a></td>
 									<td style="text-align:center;"><?=$tApply?></td>
 								</tr>
-								<?
+								<?php
 								$i++;
 							}
 							if ($i == 1) {
@@ -424,12 +424,12 @@ $_SESSION["oCampus"] = $oCampus;
 								<tr>
 									<td colspan="5" style="text-align:center;"><?=$msg_error_nodata?></td>
 								</tr>
-								<?
+								<?php
 							}
 							@mysqli_stmt_close($stmt);
 							?>
 							</table>
-							<?
+							<?php
 							$query_string = $PHP_SELF . "?mid=" . $mid . "&cmid=" . $cmid . "&lang=" . $lang . "&act=list&skeyword=" . urlencode($keyword) . "&mProgram=" . urlencode($mProgram) . "&sOpt=" . urlencode($sOpt) . "&sOptB=" . urlencode($sOptB) . "&sOptC=" . urlencode($sOptC) . "&pageblock=" . urlencode($pageblock);
 							$icon_paging = getBBSPage($total_record, $total_page, $page_per_block, $page, $last, $query_string, $lang);
 							echo $icon_paging;
@@ -452,7 +452,7 @@ $_SESSION["oCampus"] = $oCampus;
 									hideLoader();
 								});
 							</script>
-							<?
+							<?php
 						}
 						break;
 					case "m03":
@@ -478,7 +478,7 @@ $_SESSION["oCampus"] = $oCampus;
 										alert('<?=$msg_commit_error?>');
 										history.go(-1);
 									</script>
-									<?
+									<?php
 								}
 								@mysqli_autocommit($db, true);
 							}
@@ -495,7 +495,7 @@ $_SESSION["oCampus"] = $oCampus;
 							<th width="80"><?=htmlspecialchars($app_label_result_i)?></th>
 							<th width="80"><?=htmlspecialchars($app_label_result_j)?></th>
 						</tr>
-						<?
+						<?php
 						$i = 1;
 						$stmt = @mysqli_prepare($db, "select tMember.ID, tProgram.ID, getCodeName('PROGRAM', tProgram.pCode, ?, ?), tTutoring.tTitle, tTutoring.tProfessor, tTutoring.tGubun, (select (case when ?='k' Then tStudent.sName Else tStudent.sNameE end) from tStudent inner join tMember on tStudent.ID=tMember.sID where tMember.tID=tTutoring.ID and tMember.mGubun='A'), (select count(ID) from tMember where mGubun='B' and tID=tTutoring.ID), tMember.mGubun, getCodeName('MGUBUN', tMember.mGubun, '', ?) from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID inner join tMember on tTutoring.ID=tMember.tID where tProgram.pCampus=? and tProgram.pSemester=? and tMember.sID=?");
 						@mysqli_stmt_bind_param($stmt, 'ssssssi', $oCampus, $lang, $lang, $lang, $oCampus, $CONFIG_SEM, $userno);
@@ -517,19 +517,19 @@ $_SESSION["oCampus"] = $oCampus;
 								<td style="text-align:center;"><?=$tName?></td>
 								<td style="text-align:center;"><?=number_format($tCnt,0)?></td>
 								<td style="text-align:center;"><?=htmlspecialchars($StrGubun)?></td>
-								<?
+								<?php
 								if (getPeriodCheck($db, $pID) == "Y") {
 									?>
 									<td style="text-align:center;"><a href="#" OnClick="Javascript: if (confirm('<?=$msg_cancel_check?>')) { showLoader(); document.ffdata.uid.value='<?=$uid?>'; document.ffdata.pid.value='<?=$pID?>'; document.ffdata.act.value='dok'; document.ffdata.submit(); } return false; " class="button icon danger trash"><?=$msg_btn_cancel?></a></td>
-									<?
+									<?php
 								} else {
 									?>
 									<td style="text-align:center;">-</td>
-									<?
+									<?php
 								}
 								?>
 							</tr>
-							<?
+							<?php
 							$i++;
 						}
 						if ($i == 1) {
@@ -537,7 +537,7 @@ $_SESSION["oCampus"] = $oCampus;
 							<tr>
 								<td colspan="7" style="text-align:center;"><?=$msg_error_nodata?></td>
 							</tr>
-							<?
+							<?php
 						}
 						@mysqli_stmt_close($stmt);
 						?>
@@ -553,7 +553,7 @@ $_SESSION["oCampus"] = $oCampus;
 							<th width="80"><?=htmlspecialchars($app_label_result_h)?></th>
 							<th width="80"><?=htmlspecialchars($app_label_result_i)?></th>
 						</tr>
-						<?
+						<?php
 						$i = 1;
 						$stmt = @mysqli_prepare($db, "select tTutoring.ID, tProgram.ID, tProgram.pSemester, getCodeName('PROGRAM', tProgram.pCode, ?, ?), tTutoring.tTitle, tTutoring.tProfessor, tTutoring.tGubun, (select (case when ?='k' Then tStudent.sName Else tStudent.sNameE end) from tStudent inner join tMember on tStudent.ID=tMember.sID where tMember.tID=tTutoring.ID and tMember.mGubun='A'), (select count(ID) from tMember where mGubun='B' and tID=tTutoring.ID), tMember.mGubun, getCodeName('MGUBUN', tMember.mGubun, '', ?) from tTutoring inner join tProgram on tTutoring.pID=tProgram.ID inner join tMember on tTutoring.ID=tMember.tID where tProgram.pCampus=? and tProgram.pSemester < ? and tMember.sID=?");
 						@mysqli_stmt_bind_param($stmt, 'ssssssi', $oCampus, $lang, $lang, $lang, $oCampus, $CONFIG_SEM, $userno);
@@ -577,7 +577,7 @@ $_SESSION["oCampus"] = $oCampus;
 								<td style="text-align:center;"><?=number_format($tCnt,0)?></td>
 								<td style="text-align:center;"><?=htmlspecialchars($StrGubun)?></td>
 							</tr>
-							<?
+							<?php
 							$i++;
 						}
 						if ($i == 1) {
@@ -585,7 +585,7 @@ $_SESSION["oCampus"] = $oCampus;
 							<tr>
 								<td colspan="7" style="text-align:center;"><?=$msg_error_nodata?></td>
 							</tr>
-							<?
+							<?php
 						}
 						@mysqli_stmt_close($stmt);
 						?>
@@ -596,7 +596,7 @@ $_SESSION["oCampus"] = $oCampus;
 						<input type="hidden" name="pid">
 						<input type="hidden" name="act">
 						</form>
-						<?
+						<?php
 						break;
 				}
 				?>
@@ -611,7 +611,7 @@ $_SESSION["oCampus"] = $oCampus;
 				</div>
 			</div>
 		</div>
-		<?
+		<?php
 		include ($_SERVER['DOCUMENT_ROOT'] . '/include/ose_loader.php');
 		?>
 		<div id="pop_up">
@@ -625,6 +625,6 @@ $_SESSION["oCampus"] = $oCampus;
 	</div>
 </body>
 </html>
-<?
+<?php
 include ($_SERVER['DOCUMENT_ROOT'] . '/include/main_config_db_close.php');
 ?>

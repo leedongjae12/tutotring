@@ -1,4 +1,4 @@
-<?
+<?php
 $act = getParam("act");
 if (!$act) {
 	$act = "view";
@@ -57,7 +57,7 @@ switch ($act) {
 					<script type="text/javascript">
 						alert('<?=$msg_commit_error?>'); history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 				@mysqli_autocommit($db, true);
 			}
@@ -89,7 +89,7 @@ switch ($act) {
 					<script type="text/javascript">
 						alert('<?=$msg_commit_error?>'); history.go(-1);
 					</script>
-					<?
+					<?php
 				}
 				@mysqli_autocommit($db, true);
 			}
@@ -110,24 +110,24 @@ switch ($act) {
 				if ($mAuth_Write_Check == "Y") {
 					?>
 					<p style="text-align:right;"><a href="<?=$PHP_SELF?>?mid=<?=$mid?>&act=write&cmid=<?=$cmid?>&sOpt=<?=urlencode($sOpt)?>" class="button icon add"><?=$msg_btn_add?></a></p>
-					<?
+					<?php
 				}
 			} else {
 				echo $mText;
 				?>
 				<p style="text-align:right;">
-				<?
+				<?php
 				if ($mAuth_Write_Check == "Y") {
 					?>
 					<a href="<?=$PHP_SELF?>?mid=<?=$mid?>&act=modify&cmid=<?=$cmid?>&uid=<?=$uid?>&sOpt=<?=urlencode($sOpt)?>" class="button icon edit"><?=$msg_btn_edit?></a>
-					<?
+					<?php
 				}
 				?>
-				<?
+				<?php
 				if ($mAuth_Delete_Check == "Y") {
 					?>
 					<a href="<?=$PHP_SELF?>?mid=<?=$mid?>&act=delete&cmid=<?=$cmid?>&uid=<?=$uid?>&sOpt=<?=urlencode($sOpt)?>"  OnClick="Javascript: if (confirm('<?=$msg_delete_check?>')) { } else {return false;}" class="button danger icon trash" style="margin-left:5px;"><?=$msg_btn_delete?></a>
-					<?
+					<?php
 				}
 			}
 		}
@@ -154,7 +154,7 @@ switch ($act) {
 			</div>
 			<p align="center"><a href="#" OnClick="Javascript: showLoader(); document.contentsadd.submit(); return false;" class="button icon approve"><?=$msg_btn_save?></a>
 			</form>
-			<?
+			<?php
 		}
 		TinyMCEInit ($userlevel, "100%", $editor_css, $mid, $cmid, $lang);
 		break;
@@ -183,7 +183,7 @@ switch ($act) {
 			</div>
 			<p align="center"><a href="#" OnClick="Javascript: showLoader(); document.contentsadd.submit(); return false;" class="button icon approve"><?=$msg_btn_save?></a>
 			</form>
-			<?
+			<?php
 		}
 		TinyMCEInit ($userlevel, "100%", $editor_css, $mid, $cmid, $lang);
 		break;
@@ -209,14 +209,14 @@ switch ($act) {
 				<script type="text/javascript">
 					window.location='<?=$PHP_SELF?>?mid=<?=$mid?>&cmid=<?=$cmid?>&sOpt=<?=$sOpt?>';
 				</script>
-				<?
+				<?php
 			} else {
 				@mysqli_rollback($db);
 				?>
 				<script type="text/javascript">
 					alert('<?=$msg_commit_error?>'); history.go(-1);
 				</script>
-				<?
+				<?php
 			}
 		}
 		break;
