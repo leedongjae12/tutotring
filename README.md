@@ -25,9 +25,19 @@ bash install.sh --check
 
 ## DB 및 웹서버 설정
 
+기존 PHP 8.4 서버에서는 다음 파일에 기존 DB 접속 정보를 입력하면 됩니다.
+기존 로컬 설정 파일이 있으면 덮어쓰지 마세요.
+
+```bash
+cp -n include/main_config_db.local.example.php include/main_config_db.local.php
+vi include/main_config_db.local.php
+```
+
 `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, 선택적으로 `DB_PORT`(기본 3306)를
-PHP 실행 프로세스에 전달하세요. 기존 코드에 있던 DB 접속 정보는 제거했습니다.
-`.env` 파일은 자동으로 읽지 않습니다. PHP-FPM의 환경 변수 전달 설정을 따로 확인하세요.
+입력하세요. 이 파일은 Git에서 제외되어 다음 `git pull`에도 유지됩니다.
+서버 패키지 설치나 PHP-FPM 환경 변수 설정은 필요하지 않습니다.
+환경 변수도 계속 지원하며, 설정된 환경 변수가 로컬 파일 값보다 우선합니다.
+`.env` 파일은 자동으로 읽지 않습니다. 실제 접속 정보를 Git에 추가하지 마세요.
 접속 정보가 없거나 DB 연결에 실패하면 자격 증명 노출 없이 HTTP 503을 반환합니다.
 DB 스키마, 데이터, 사용자 정의 DB 함수는 별도로 준비해야 합니다.
 
@@ -42,7 +52,7 @@ PHP-FPM과 Apache/Nginx의 문서 루트는 저장소 디렉터리로 설정하�
 php -S 127.0.0.1:8080 -t .
 ```
 
-DB 환경 변수가 없을 때 `/sinchon/index.php`의 예상 응답은 HTTP 503입니다.
+로컬 DB 설정과 DB 환경 변수가 모두 없을 때 `/sinchon/index.php`의 예상 응답은 HTTP 503입니다.
 런타임 검사 통과는 로그인·DB 업무 흐름의 정상 동작을 의미하지 않습니다.
 `css`, `js`, `images` 등 누락된 정적 파일과 대학 SSO/API 접근도 별도 준비가 필요합니다.
 

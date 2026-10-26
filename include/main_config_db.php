@@ -1,13 +1,23 @@
 <?php
-// Supply these variables through the web server/PHP-FPM environment.
-$dbHost = getenv('DB_HOST');
-$dbUser = getenv('DB_USER');
-$dbPassword = getenv('DB_PASSWORD');
-$dbName = getenv('DB_NAME');
-$dbPort = getenv('DB_PORT') ?: '3306';
+// Local PHP configuration avoids requiring changes to PHP-FPM's environment.
+// Explicit environment variables take precedence over the local file.
+$dbConfigFile = __DIR__ . '/main_config_db.local.php';
+$dbConfig = is_file($dbConfigFile) ? require $dbConfigFile : [];
+if (!is_array($dbConfig)) {
+    $dbConfig = [];
+}
+$dbSetting = static function ($name, $default = false) use ($dbConfig) {
+    $value = getenv($name);
+    return $value !== false ? $value : ($dbConfig[$name] ?? $default);
+};
+$dbHost = $dbSetting('DB_HOST');
+$dbUser = $dbSetting('DB_USER');
+$dbPassword = $dbSetting('DB_PASSWORD');
+$dbName = $dbSetting('DB_NAME');
+$dbPort = $dbSetting('DB_PORT', '3306');
 
 if (!$dbHost || !$dbUser || $dbPassword === false || !$dbName) {
-    error_log('Database configuration missing: DB_HOST, DB_USER, DB_PASSWORD, DB_NAME are required.');
+    error_log('Database configuration missing: configure include/main_config_db.local.php or DB_HOST, DB_USER, DB_PASSWORD, DB_NAME.');
     http_response_code(503);
     exit('Database configuration is unavailable.');
 }

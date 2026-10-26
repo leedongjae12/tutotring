@@ -1,3 +1,4 @@
 /vendor/
 /.env
 /composer.phar
+/include/main_config_db.local.php
