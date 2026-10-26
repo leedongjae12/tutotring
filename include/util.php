@@ -862,7 +862,6 @@ function getLang($db, $oCampus) {
 		@mysqli_stmt_bind_result($cstmt, $cCodeDesc);
 		@mysqli_stmt_fetch($cstmt);
 		@mysqli_stmt_close($cstmt);
-		@mysqli_stmt_close($cstmt);
 		$ret = $cCodeDesc;
 	}
 	return $ret;
